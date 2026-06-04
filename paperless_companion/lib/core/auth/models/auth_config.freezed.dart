@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$AuthConfig {
 
- String get serverId; String get baseUrl; String? get username; String? get password; String? get token;
+ String get serverId; String get baseUrl; String? get username; String? get password; String? get token; String? get oidcDiscoveryUrl; String? get oidcClientId; Map<String, String>? get customHeaders; String? get clientCertPath; String? get clientCertPassword;
 /// Create a copy of AuthConfig
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $AuthConfigCopyWith<AuthConfig> get copyWith => _$AuthConfigCopyWithImpl<AuthCon
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is AuthConfig&&(identical(other.serverId, serverId) || other.serverId == serverId)&&(identical(other.baseUrl, baseUrl) || other.baseUrl == baseUrl)&&(identical(other.username, username) || other.username == username)&&(identical(other.password, password) || other.password == password)&&(identical(other.token, token) || other.token == token));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is AuthConfig&&(identical(other.serverId, serverId) || other.serverId == serverId)&&(identical(other.baseUrl, baseUrl) || other.baseUrl == baseUrl)&&(identical(other.username, username) || other.username == username)&&(identical(other.password, password) || other.password == password)&&(identical(other.token, token) || other.token == token)&&(identical(other.oidcDiscoveryUrl, oidcDiscoveryUrl) || other.oidcDiscoveryUrl == oidcDiscoveryUrl)&&(identical(other.oidcClientId, oidcClientId) || other.oidcClientId == oidcClientId)&&const DeepCollectionEquality().equals(other.customHeaders, customHeaders)&&(identical(other.clientCertPath, clientCertPath) || other.clientCertPath == clientCertPath)&&(identical(other.clientCertPassword, clientCertPassword) || other.clientCertPassword == clientCertPassword));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,serverId,baseUrl,username,password,token);
+int get hashCode => Object.hash(runtimeType,serverId,baseUrl,username,password,token,oidcDiscoveryUrl,oidcClientId,const DeepCollectionEquality().hash(customHeaders),clientCertPath,clientCertPassword);
 
 @override
 String toString() {
-  return 'AuthConfig(serverId: $serverId, baseUrl: $baseUrl, username: $username, password: $password, token: $token)';
+  return 'AuthConfig(serverId: $serverId, baseUrl: $baseUrl, username: $username, password: $password, token: $token, oidcDiscoveryUrl: $oidcDiscoveryUrl, oidcClientId: $oidcClientId, customHeaders: $customHeaders, clientCertPath: $clientCertPath, clientCertPassword: $clientCertPassword)';
 }
 
 
@@ -48,7 +48,7 @@ abstract mixin class $AuthConfigCopyWith<$Res>  {
   factory $AuthConfigCopyWith(AuthConfig value, $Res Function(AuthConfig) _then) = _$AuthConfigCopyWithImpl;
 @useResult
 $Res call({
- String serverId, String baseUrl, String? username, String? password, String? token
+ String serverId, String baseUrl, String? username, String? password, String? token, String? oidcDiscoveryUrl, String? oidcClientId, Map<String, String>? customHeaders, String? clientCertPath, String? clientCertPassword
 });
 
 
@@ -65,13 +65,18 @@ class _$AuthConfigCopyWithImpl<$Res>
 
 /// Create a copy of AuthConfig
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? serverId = null,Object? baseUrl = null,Object? username = freezed,Object? password = freezed,Object? token = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? serverId = null,Object? baseUrl = null,Object? username = freezed,Object? password = freezed,Object? token = freezed,Object? oidcDiscoveryUrl = freezed,Object? oidcClientId = freezed,Object? customHeaders = freezed,Object? clientCertPath = freezed,Object? clientCertPassword = freezed,}) {
   return _then(_self.copyWith(
 serverId: null == serverId ? _self.serverId : serverId // ignore: cast_nullable_to_non_nullable
 as String,baseUrl: null == baseUrl ? _self.baseUrl : baseUrl // ignore: cast_nullable_to_non_nullable
 as String,username: freezed == username ? _self.username : username // ignore: cast_nullable_to_non_nullable
 as String?,password: freezed == password ? _self.password : password // ignore: cast_nullable_to_non_nullable
 as String?,token: freezed == token ? _self.token : token // ignore: cast_nullable_to_non_nullable
+as String?,oidcDiscoveryUrl: freezed == oidcDiscoveryUrl ? _self.oidcDiscoveryUrl : oidcDiscoveryUrl // ignore: cast_nullable_to_non_nullable
+as String?,oidcClientId: freezed == oidcClientId ? _self.oidcClientId : oidcClientId // ignore: cast_nullable_to_non_nullable
+as String?,customHeaders: freezed == customHeaders ? _self.customHeaders : customHeaders // ignore: cast_nullable_to_non_nullable
+as Map<String, String>?,clientCertPath: freezed == clientCertPath ? _self.clientCertPath : clientCertPath // ignore: cast_nullable_to_non_nullable
+as String?,clientCertPassword: freezed == clientCertPassword ? _self.clientCertPassword : clientCertPassword // ignore: cast_nullable_to_non_nullable
 as String?,
   ));
 }
@@ -157,10 +162,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String serverId,  String baseUrl,  String? username,  String? password,  String? token)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String serverId,  String baseUrl,  String? username,  String? password,  String? token,  String? oidcDiscoveryUrl,  String? oidcClientId,  Map<String, String>? customHeaders,  String? clientCertPath,  String? clientCertPassword)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _AuthConfig() when $default != null:
-return $default(_that.serverId,_that.baseUrl,_that.username,_that.password,_that.token);case _:
+return $default(_that.serverId,_that.baseUrl,_that.username,_that.password,_that.token,_that.oidcDiscoveryUrl,_that.oidcClientId,_that.customHeaders,_that.clientCertPath,_that.clientCertPassword);case _:
   return orElse();
 
 }
@@ -178,10 +183,10 @@ return $default(_that.serverId,_that.baseUrl,_that.username,_that.password,_that
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String serverId,  String baseUrl,  String? username,  String? password,  String? token)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String serverId,  String baseUrl,  String? username,  String? password,  String? token,  String? oidcDiscoveryUrl,  String? oidcClientId,  Map<String, String>? customHeaders,  String? clientCertPath,  String? clientCertPassword)  $default,) {final _that = this;
 switch (_that) {
 case _AuthConfig():
-return $default(_that.serverId,_that.baseUrl,_that.username,_that.password,_that.token);case _:
+return $default(_that.serverId,_that.baseUrl,_that.username,_that.password,_that.token,_that.oidcDiscoveryUrl,_that.oidcClientId,_that.customHeaders,_that.clientCertPath,_that.clientCertPassword);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -198,10 +203,10 @@ return $default(_that.serverId,_that.baseUrl,_that.username,_that.password,_that
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String serverId,  String baseUrl,  String? username,  String? password,  String? token)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String serverId,  String baseUrl,  String? username,  String? password,  String? token,  String? oidcDiscoveryUrl,  String? oidcClientId,  Map<String, String>? customHeaders,  String? clientCertPath,  String? clientCertPassword)?  $default,) {final _that = this;
 switch (_that) {
 case _AuthConfig() when $default != null:
-return $default(_that.serverId,_that.baseUrl,_that.username,_that.password,_that.token);case _:
+return $default(_that.serverId,_that.baseUrl,_that.username,_that.password,_that.token,_that.oidcDiscoveryUrl,_that.oidcClientId,_that.customHeaders,_that.clientCertPath,_that.clientCertPassword);case _:
   return null;
 
 }
@@ -213,7 +218,7 @@ return $default(_that.serverId,_that.baseUrl,_that.username,_that.password,_that
 @JsonSerializable()
 
 class _AuthConfig implements AuthConfig {
-  const _AuthConfig({required this.serverId, required this.baseUrl, this.username, this.password, this.token});
+  const _AuthConfig({required this.serverId, required this.baseUrl, this.username, this.password, this.token, this.oidcDiscoveryUrl, this.oidcClientId, final  Map<String, String>? customHeaders, this.clientCertPath, this.clientCertPassword}): _customHeaders = customHeaders;
   factory _AuthConfig.fromJson(Map<String, dynamic> json) => _$AuthConfigFromJson(json);
 
 @override final  String serverId;
@@ -221,6 +226,19 @@ class _AuthConfig implements AuthConfig {
 @override final  String? username;
 @override final  String? password;
 @override final  String? token;
+@override final  String? oidcDiscoveryUrl;
+@override final  String? oidcClientId;
+ final  Map<String, String>? _customHeaders;
+@override Map<String, String>? get customHeaders {
+  final value = _customHeaders;
+  if (value == null) return null;
+  if (_customHeaders is EqualUnmodifiableMapView) return _customHeaders;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableMapView(value);
+}
+
+@override final  String? clientCertPath;
+@override final  String? clientCertPassword;
 
 /// Create a copy of AuthConfig
 /// with the given fields replaced by the non-null parameter values.
@@ -235,16 +253,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _AuthConfig&&(identical(other.serverId, serverId) || other.serverId == serverId)&&(identical(other.baseUrl, baseUrl) || other.baseUrl == baseUrl)&&(identical(other.username, username) || other.username == username)&&(identical(other.password, password) || other.password == password)&&(identical(other.token, token) || other.token == token));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _AuthConfig&&(identical(other.serverId, serverId) || other.serverId == serverId)&&(identical(other.baseUrl, baseUrl) || other.baseUrl == baseUrl)&&(identical(other.username, username) || other.username == username)&&(identical(other.password, password) || other.password == password)&&(identical(other.token, token) || other.token == token)&&(identical(other.oidcDiscoveryUrl, oidcDiscoveryUrl) || other.oidcDiscoveryUrl == oidcDiscoveryUrl)&&(identical(other.oidcClientId, oidcClientId) || other.oidcClientId == oidcClientId)&&const DeepCollectionEquality().equals(other._customHeaders, _customHeaders)&&(identical(other.clientCertPath, clientCertPath) || other.clientCertPath == clientCertPath)&&(identical(other.clientCertPassword, clientCertPassword) || other.clientCertPassword == clientCertPassword));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,serverId,baseUrl,username,password,token);
+int get hashCode => Object.hash(runtimeType,serverId,baseUrl,username,password,token,oidcDiscoveryUrl,oidcClientId,const DeepCollectionEquality().hash(_customHeaders),clientCertPath,clientCertPassword);
 
 @override
 String toString() {
-  return 'AuthConfig(serverId: $serverId, baseUrl: $baseUrl, username: $username, password: $password, token: $token)';
+  return 'AuthConfig(serverId: $serverId, baseUrl: $baseUrl, username: $username, password: $password, token: $token, oidcDiscoveryUrl: $oidcDiscoveryUrl, oidcClientId: $oidcClientId, customHeaders: $customHeaders, clientCertPath: $clientCertPath, clientCertPassword: $clientCertPassword)';
 }
 
 
@@ -255,7 +273,7 @@ abstract mixin class _$AuthConfigCopyWith<$Res> implements $AuthConfigCopyWith<$
   factory _$AuthConfigCopyWith(_AuthConfig value, $Res Function(_AuthConfig) _then) = __$AuthConfigCopyWithImpl;
 @override @useResult
 $Res call({
- String serverId, String baseUrl, String? username, String? password, String? token
+ String serverId, String baseUrl, String? username, String? password, String? token, String? oidcDiscoveryUrl, String? oidcClientId, Map<String, String>? customHeaders, String? clientCertPath, String? clientCertPassword
 });
 
 
@@ -272,13 +290,18 @@ class __$AuthConfigCopyWithImpl<$Res>
 
 /// Create a copy of AuthConfig
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? serverId = null,Object? baseUrl = null,Object? username = freezed,Object? password = freezed,Object? token = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? serverId = null,Object? baseUrl = null,Object? username = freezed,Object? password = freezed,Object? token = freezed,Object? oidcDiscoveryUrl = freezed,Object? oidcClientId = freezed,Object? customHeaders = freezed,Object? clientCertPath = freezed,Object? clientCertPassword = freezed,}) {
   return _then(_AuthConfig(
 serverId: null == serverId ? _self.serverId : serverId // ignore: cast_nullable_to_non_nullable
 as String,baseUrl: null == baseUrl ? _self.baseUrl : baseUrl // ignore: cast_nullable_to_non_nullable
 as String,username: freezed == username ? _self.username : username // ignore: cast_nullable_to_non_nullable
 as String?,password: freezed == password ? _self.password : password // ignore: cast_nullable_to_non_nullable
 as String?,token: freezed == token ? _self.token : token // ignore: cast_nullable_to_non_nullable
+as String?,oidcDiscoveryUrl: freezed == oidcDiscoveryUrl ? _self.oidcDiscoveryUrl : oidcDiscoveryUrl // ignore: cast_nullable_to_non_nullable
+as String?,oidcClientId: freezed == oidcClientId ? _self.oidcClientId : oidcClientId // ignore: cast_nullable_to_non_nullable
+as String?,customHeaders: freezed == customHeaders ? _self._customHeaders : customHeaders // ignore: cast_nullable_to_non_nullable
+as Map<String, String>?,clientCertPath: freezed == clientCertPath ? _self.clientCertPath : clientCertPath // ignore: cast_nullable_to_non_nullable
+as String?,clientCertPassword: freezed == clientCertPassword ? _self.clientCertPassword : clientCertPassword // ignore: cast_nullable_to_non_nullable
 as String?,
   ));
 }

@@ -13,9 +13,14 @@ _ServerConfig _$ServerConfigFromJson(Map<String, dynamic> json) =>
       baseUrl: json['baseUrl'] as String,
       authType: $enumDecode(_$AuthStrategyTypeEnumMap, json['authType']),
       trustSelfSigned: json['trustSelfSigned'] as bool? ?? false,
+      caCertPath: json['caCertPath'] as String?,
+      clientCertPath: json['clientCertPath'] as String?,
+      clientCertPassword: json['clientCertPassword'] as String?,
       customHeaders: (json['customHeaders'] as Map<String, dynamic>?)?.map(
         (k, e) => MapEntry(k, e as String),
       ),
+      oidcDiscoveryUrl: json['oidcDiscoveryUrl'] as String?,
+      oidcClientId: json['oidcClientId'] as String?,
     );
 
 Map<String, dynamic> _$ServerConfigToJson(_ServerConfig instance) =>
@@ -25,7 +30,12 @@ Map<String, dynamic> _$ServerConfigToJson(_ServerConfig instance) =>
       'baseUrl': instance.baseUrl,
       'authType': _$AuthStrategyTypeEnumMap[instance.authType]!,
       'trustSelfSigned': instance.trustSelfSigned,
+      'caCertPath': instance.caCertPath,
+      'clientCertPath': instance.clientCertPath,
+      'clientCertPassword': instance.clientCertPassword,
       'customHeaders': instance.customHeaders,
+      'oidcDiscoveryUrl': instance.oidcDiscoveryUrl,
+      'oidcClientId': instance.oidcClientId,
     };
 
 const _$AuthStrategyTypeEnumMap = {

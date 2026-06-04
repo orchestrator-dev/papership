@@ -13,7 +13,12 @@ abstract class ServerConfig with _$ServerConfig {
     required String baseUrl,
     required AuthStrategyType authType,
     @Default(false) bool trustSelfSigned,
+    String? caCertPath,
+    String? clientCertPath,
+    String? clientCertPassword,
     Map<String, String>? customHeaders,
+    String? oidcDiscoveryUrl,
+    String? oidcClientId,
   }) = _ServerConfig;
 
   factory ServerConfig.fromJson(Map<String, dynamic> json) =>

@@ -18,7 +18,13 @@ import 'data/remote/services/paperless_api_service.dart' as _i359;
 import 'data/remote/services/paperless_api_service_impl.dart' as _i175;
 import 'data/repositories/document_repository_impl.dart' as _i394;
 import 'domain/repositories/document_repository.dart' as _i822;
+import 'domain/usecases/download_document_usecase.dart' as _i49;
+import 'domain/usecases/get_document_preview_usecase.dart' as _i34;
+import 'domain/usecases/get_document_usecase.dart' as _i117;
 import 'domain/usecases/get_documents_usecase.dart' as _i1033;
+import 'domain/usecases/update_document_usecase.dart' as _i840;
+import 'features/documents/presentation/bloc/document_detail_cubit.dart'
+    as _i105;
 import 'features/documents/presentation/bloc/document_list_cubit.dart' as _i587;
 
 extension GetItInjectableX on _i174.GetIt {
@@ -42,8 +48,28 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i1033.GetDocumentsUseCase>(
       () => _i1033.GetDocumentsUseCase(gh<_i822.DocumentRepository>()),
     );
+    gh.factory<_i49.DownloadDocumentUseCase>(
+      () => _i49.DownloadDocumentUseCase(gh<_i822.DocumentRepository>()),
+    );
+    gh.factory<_i34.GetDocumentPreviewUseCase>(
+      () => _i34.GetDocumentPreviewUseCase(gh<_i822.DocumentRepository>()),
+    );
+    gh.factory<_i117.GetDocumentUseCase>(
+      () => _i117.GetDocumentUseCase(gh<_i822.DocumentRepository>()),
+    );
+    gh.factory<_i840.UpdateDocumentUseCase>(
+      () => _i840.UpdateDocumentUseCase(gh<_i822.DocumentRepository>()),
+    );
     gh.factory<_i587.DocumentListCubit>(
       () => _i587.DocumentListCubit(gh<_i1033.GetDocumentsUseCase>()),
+    );
+    gh.factory<_i105.DocumentDetailCubit>(
+      () => _i105.DocumentDetailCubit(
+        gh<_i117.GetDocumentUseCase>(),
+        gh<_i840.UpdateDocumentUseCase>(),
+        gh<_i49.DownloadDocumentUseCase>(),
+        gh<_i34.GetDocumentPreviewUseCase>(),
+      ),
     );
     return this;
   }

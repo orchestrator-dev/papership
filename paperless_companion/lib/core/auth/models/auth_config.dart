@@ -11,6 +11,11 @@ abstract class AuthConfig with _$AuthConfig {
     String? username,
     String? password,
     String? token,
+    String? oidcDiscoveryUrl,
+    String? oidcClientId,
+    Map<String, String>? customHeaders,
+    String? clientCertPath,
+    String? clientCertPassword,
   }) = _AuthConfig;
 
   factory AuthConfig.fromJson(Map<String, dynamic> json) => _$AuthConfigFromJson(json);

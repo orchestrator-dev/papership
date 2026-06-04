@@ -14,6 +14,12 @@ _AuthCredentials _$AuthCredentialsFromJson(Map<String, dynamic> json) =>
       refreshToken: json['refreshToken'] as String?,
       username: json['username'] as String?,
       password: json['password'] as String?,
+      customHeaders: (json['customHeaders'] as Map<String, dynamic>?)?.map(
+        (k, e) => MapEntry(k, e as String),
+      ),
+      certificateBase64: json['certificateBase64'] as String?,
+      oidcDiscoveryUrl: json['oidcDiscoveryUrl'] as String?,
+      oidcClientId: json['oidcClientId'] as String?,
     );
 
 Map<String, dynamic> _$AuthCredentialsToJson(_AuthCredentials instance) =>
@@ -24,4 +30,8 @@ Map<String, dynamic> _$AuthCredentialsToJson(_AuthCredentials instance) =>
       'refreshToken': instance.refreshToken,
       'username': instance.username,
       'password': instance.password,
+      'customHeaders': instance.customHeaders,
+      'certificateBase64': instance.certificateBase64,
+      'oidcDiscoveryUrl': instance.oidcDiscoveryUrl,
+      'oidcClientId': instance.oidcClientId,
     };

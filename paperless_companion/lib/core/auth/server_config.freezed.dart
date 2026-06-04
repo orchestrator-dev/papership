@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$ServerConfig {
 
- String get id; String get displayName; String get baseUrl; AuthStrategyType get authType; bool get trustSelfSigned; Map<String, String>? get customHeaders;
+ String get id; String get displayName; String get baseUrl; AuthStrategyType get authType; bool get trustSelfSigned; String? get caCertPath; String? get clientCertPath; String? get clientCertPassword; Map<String, String>? get customHeaders; String? get oidcDiscoveryUrl; String? get oidcClientId;
 /// Create a copy of ServerConfig
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $ServerConfigCopyWith<ServerConfig> get copyWith => _$ServerConfigCopyWithImpl<S
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ServerConfig&&(identical(other.id, id) || other.id == id)&&(identical(other.displayName, displayName) || other.displayName == displayName)&&(identical(other.baseUrl, baseUrl) || other.baseUrl == baseUrl)&&(identical(other.authType, authType) || other.authType == authType)&&(identical(other.trustSelfSigned, trustSelfSigned) || other.trustSelfSigned == trustSelfSigned)&&const DeepCollectionEquality().equals(other.customHeaders, customHeaders));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ServerConfig&&(identical(other.id, id) || other.id == id)&&(identical(other.displayName, displayName) || other.displayName == displayName)&&(identical(other.baseUrl, baseUrl) || other.baseUrl == baseUrl)&&(identical(other.authType, authType) || other.authType == authType)&&(identical(other.trustSelfSigned, trustSelfSigned) || other.trustSelfSigned == trustSelfSigned)&&(identical(other.caCertPath, caCertPath) || other.caCertPath == caCertPath)&&(identical(other.clientCertPath, clientCertPath) || other.clientCertPath == clientCertPath)&&(identical(other.clientCertPassword, clientCertPassword) || other.clientCertPassword == clientCertPassword)&&const DeepCollectionEquality().equals(other.customHeaders, customHeaders)&&(identical(other.oidcDiscoveryUrl, oidcDiscoveryUrl) || other.oidcDiscoveryUrl == oidcDiscoveryUrl)&&(identical(other.oidcClientId, oidcClientId) || other.oidcClientId == oidcClientId));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,displayName,baseUrl,authType,trustSelfSigned,const DeepCollectionEquality().hash(customHeaders));
+int get hashCode => Object.hash(runtimeType,id,displayName,baseUrl,authType,trustSelfSigned,caCertPath,clientCertPath,clientCertPassword,const DeepCollectionEquality().hash(customHeaders),oidcDiscoveryUrl,oidcClientId);
 
 @override
 String toString() {
-  return 'ServerConfig(id: $id, displayName: $displayName, baseUrl: $baseUrl, authType: $authType, trustSelfSigned: $trustSelfSigned, customHeaders: $customHeaders)';
+  return 'ServerConfig(id: $id, displayName: $displayName, baseUrl: $baseUrl, authType: $authType, trustSelfSigned: $trustSelfSigned, caCertPath: $caCertPath, clientCertPath: $clientCertPath, clientCertPassword: $clientCertPassword, customHeaders: $customHeaders, oidcDiscoveryUrl: $oidcDiscoveryUrl, oidcClientId: $oidcClientId)';
 }
 
 
@@ -48,7 +48,7 @@ abstract mixin class $ServerConfigCopyWith<$Res>  {
   factory $ServerConfigCopyWith(ServerConfig value, $Res Function(ServerConfig) _then) = _$ServerConfigCopyWithImpl;
 @useResult
 $Res call({
- String id, String displayName, String baseUrl, AuthStrategyType authType, bool trustSelfSigned, Map<String, String>? customHeaders
+ String id, String displayName, String baseUrl, AuthStrategyType authType, bool trustSelfSigned, String? caCertPath, String? clientCertPath, String? clientCertPassword, Map<String, String>? customHeaders, String? oidcDiscoveryUrl, String? oidcClientId
 });
 
 
@@ -65,15 +65,20 @@ class _$ServerConfigCopyWithImpl<$Res>
 
 /// Create a copy of ServerConfig
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? displayName = null,Object? baseUrl = null,Object? authType = null,Object? trustSelfSigned = null,Object? customHeaders = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? displayName = null,Object? baseUrl = null,Object? authType = null,Object? trustSelfSigned = null,Object? caCertPath = freezed,Object? clientCertPath = freezed,Object? clientCertPassword = freezed,Object? customHeaders = freezed,Object? oidcDiscoveryUrl = freezed,Object? oidcClientId = freezed,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,displayName: null == displayName ? _self.displayName : displayName // ignore: cast_nullable_to_non_nullable
 as String,baseUrl: null == baseUrl ? _self.baseUrl : baseUrl // ignore: cast_nullable_to_non_nullable
 as String,authType: null == authType ? _self.authType : authType // ignore: cast_nullable_to_non_nullable
 as AuthStrategyType,trustSelfSigned: null == trustSelfSigned ? _self.trustSelfSigned : trustSelfSigned // ignore: cast_nullable_to_non_nullable
-as bool,customHeaders: freezed == customHeaders ? _self.customHeaders : customHeaders // ignore: cast_nullable_to_non_nullable
-as Map<String, String>?,
+as bool,caCertPath: freezed == caCertPath ? _self.caCertPath : caCertPath // ignore: cast_nullable_to_non_nullable
+as String?,clientCertPath: freezed == clientCertPath ? _self.clientCertPath : clientCertPath // ignore: cast_nullable_to_non_nullable
+as String?,clientCertPassword: freezed == clientCertPassword ? _self.clientCertPassword : clientCertPassword // ignore: cast_nullable_to_non_nullable
+as String?,customHeaders: freezed == customHeaders ? _self.customHeaders : customHeaders // ignore: cast_nullable_to_non_nullable
+as Map<String, String>?,oidcDiscoveryUrl: freezed == oidcDiscoveryUrl ? _self.oidcDiscoveryUrl : oidcDiscoveryUrl // ignore: cast_nullable_to_non_nullable
+as String?,oidcClientId: freezed == oidcClientId ? _self.oidcClientId : oidcClientId // ignore: cast_nullable_to_non_nullable
+as String?,
   ));
 }
 
@@ -158,10 +163,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String displayName,  String baseUrl,  AuthStrategyType authType,  bool trustSelfSigned,  Map<String, String>? customHeaders)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String displayName,  String baseUrl,  AuthStrategyType authType,  bool trustSelfSigned,  String? caCertPath,  String? clientCertPath,  String? clientCertPassword,  Map<String, String>? customHeaders,  String? oidcDiscoveryUrl,  String? oidcClientId)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _ServerConfig() when $default != null:
-return $default(_that.id,_that.displayName,_that.baseUrl,_that.authType,_that.trustSelfSigned,_that.customHeaders);case _:
+return $default(_that.id,_that.displayName,_that.baseUrl,_that.authType,_that.trustSelfSigned,_that.caCertPath,_that.clientCertPath,_that.clientCertPassword,_that.customHeaders,_that.oidcDiscoveryUrl,_that.oidcClientId);case _:
   return orElse();
 
 }
@@ -179,10 +184,10 @@ return $default(_that.id,_that.displayName,_that.baseUrl,_that.authType,_that.tr
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String displayName,  String baseUrl,  AuthStrategyType authType,  bool trustSelfSigned,  Map<String, String>? customHeaders)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String displayName,  String baseUrl,  AuthStrategyType authType,  bool trustSelfSigned,  String? caCertPath,  String? clientCertPath,  String? clientCertPassword,  Map<String, String>? customHeaders,  String? oidcDiscoveryUrl,  String? oidcClientId)  $default,) {final _that = this;
 switch (_that) {
 case _ServerConfig():
-return $default(_that.id,_that.displayName,_that.baseUrl,_that.authType,_that.trustSelfSigned,_that.customHeaders);case _:
+return $default(_that.id,_that.displayName,_that.baseUrl,_that.authType,_that.trustSelfSigned,_that.caCertPath,_that.clientCertPath,_that.clientCertPassword,_that.customHeaders,_that.oidcDiscoveryUrl,_that.oidcClientId);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -199,10 +204,10 @@ return $default(_that.id,_that.displayName,_that.baseUrl,_that.authType,_that.tr
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String displayName,  String baseUrl,  AuthStrategyType authType,  bool trustSelfSigned,  Map<String, String>? customHeaders)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String displayName,  String baseUrl,  AuthStrategyType authType,  bool trustSelfSigned,  String? caCertPath,  String? clientCertPath,  String? clientCertPassword,  Map<String, String>? customHeaders,  String? oidcDiscoveryUrl,  String? oidcClientId)?  $default,) {final _that = this;
 switch (_that) {
 case _ServerConfig() when $default != null:
-return $default(_that.id,_that.displayName,_that.baseUrl,_that.authType,_that.trustSelfSigned,_that.customHeaders);case _:
+return $default(_that.id,_that.displayName,_that.baseUrl,_that.authType,_that.trustSelfSigned,_that.caCertPath,_that.clientCertPath,_that.clientCertPassword,_that.customHeaders,_that.oidcDiscoveryUrl,_that.oidcClientId);case _:
   return null;
 
 }
@@ -214,7 +219,7 @@ return $default(_that.id,_that.displayName,_that.baseUrl,_that.authType,_that.tr
 @JsonSerializable()
 
 class _ServerConfig implements ServerConfig {
-  const _ServerConfig({required this.id, required this.displayName, required this.baseUrl, required this.authType, this.trustSelfSigned = false, final  Map<String, String>? customHeaders}): _customHeaders = customHeaders;
+  const _ServerConfig({required this.id, required this.displayName, required this.baseUrl, required this.authType, this.trustSelfSigned = false, this.caCertPath, this.clientCertPath, this.clientCertPassword, final  Map<String, String>? customHeaders, this.oidcDiscoveryUrl, this.oidcClientId}): _customHeaders = customHeaders;
   factory _ServerConfig.fromJson(Map<String, dynamic> json) => _$ServerConfigFromJson(json);
 
 @override final  String id;
@@ -222,6 +227,9 @@ class _ServerConfig implements ServerConfig {
 @override final  String baseUrl;
 @override final  AuthStrategyType authType;
 @override@JsonKey() final  bool trustSelfSigned;
+@override final  String? caCertPath;
+@override final  String? clientCertPath;
+@override final  String? clientCertPassword;
  final  Map<String, String>? _customHeaders;
 @override Map<String, String>? get customHeaders {
   final value = _customHeaders;
@@ -231,6 +239,8 @@ class _ServerConfig implements ServerConfig {
   return EqualUnmodifiableMapView(value);
 }
 
+@override final  String? oidcDiscoveryUrl;
+@override final  String? oidcClientId;
 
 /// Create a copy of ServerConfig
 /// with the given fields replaced by the non-null parameter values.
@@ -245,16 +255,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ServerConfig&&(identical(other.id, id) || other.id == id)&&(identical(other.displayName, displayName) || other.displayName == displayName)&&(identical(other.baseUrl, baseUrl) || other.baseUrl == baseUrl)&&(identical(other.authType, authType) || other.authType == authType)&&(identical(other.trustSelfSigned, trustSelfSigned) || other.trustSelfSigned == trustSelfSigned)&&const DeepCollectionEquality().equals(other._customHeaders, _customHeaders));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ServerConfig&&(identical(other.id, id) || other.id == id)&&(identical(other.displayName, displayName) || other.displayName == displayName)&&(identical(other.baseUrl, baseUrl) || other.baseUrl == baseUrl)&&(identical(other.authType, authType) || other.authType == authType)&&(identical(other.trustSelfSigned, trustSelfSigned) || other.trustSelfSigned == trustSelfSigned)&&(identical(other.caCertPath, caCertPath) || other.caCertPath == caCertPath)&&(identical(other.clientCertPath, clientCertPath) || other.clientCertPath == clientCertPath)&&(identical(other.clientCertPassword, clientCertPassword) || other.clientCertPassword == clientCertPassword)&&const DeepCollectionEquality().equals(other._customHeaders, _customHeaders)&&(identical(other.oidcDiscoveryUrl, oidcDiscoveryUrl) || other.oidcDiscoveryUrl == oidcDiscoveryUrl)&&(identical(other.oidcClientId, oidcClientId) || other.oidcClientId == oidcClientId));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,displayName,baseUrl,authType,trustSelfSigned,const DeepCollectionEquality().hash(_customHeaders));
+int get hashCode => Object.hash(runtimeType,id,displayName,baseUrl,authType,trustSelfSigned,caCertPath,clientCertPath,clientCertPassword,const DeepCollectionEquality().hash(_customHeaders),oidcDiscoveryUrl,oidcClientId);
 
 @override
 String toString() {
-  return 'ServerConfig(id: $id, displayName: $displayName, baseUrl: $baseUrl, authType: $authType, trustSelfSigned: $trustSelfSigned, customHeaders: $customHeaders)';
+  return 'ServerConfig(id: $id, displayName: $displayName, baseUrl: $baseUrl, authType: $authType, trustSelfSigned: $trustSelfSigned, caCertPath: $caCertPath, clientCertPath: $clientCertPath, clientCertPassword: $clientCertPassword, customHeaders: $customHeaders, oidcDiscoveryUrl: $oidcDiscoveryUrl, oidcClientId: $oidcClientId)';
 }
 
 
@@ -265,7 +275,7 @@ abstract mixin class _$ServerConfigCopyWith<$Res> implements $ServerConfigCopyWi
   factory _$ServerConfigCopyWith(_ServerConfig value, $Res Function(_ServerConfig) _then) = __$ServerConfigCopyWithImpl;
 @override @useResult
 $Res call({
- String id, String displayName, String baseUrl, AuthStrategyType authType, bool trustSelfSigned, Map<String, String>? customHeaders
+ String id, String displayName, String baseUrl, AuthStrategyType authType, bool trustSelfSigned, String? caCertPath, String? clientCertPath, String? clientCertPassword, Map<String, String>? customHeaders, String? oidcDiscoveryUrl, String? oidcClientId
 });
 
 
@@ -282,15 +292,20 @@ class __$ServerConfigCopyWithImpl<$Res>
 
 /// Create a copy of ServerConfig
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? displayName = null,Object? baseUrl = null,Object? authType = null,Object? trustSelfSigned = null,Object? customHeaders = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? displayName = null,Object? baseUrl = null,Object? authType = null,Object? trustSelfSigned = null,Object? caCertPath = freezed,Object? clientCertPath = freezed,Object? clientCertPassword = freezed,Object? customHeaders = freezed,Object? oidcDiscoveryUrl = freezed,Object? oidcClientId = freezed,}) {
   return _then(_ServerConfig(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,displayName: null == displayName ? _self.displayName : displayName // ignore: cast_nullable_to_non_nullable
 as String,baseUrl: null == baseUrl ? _self.baseUrl : baseUrl // ignore: cast_nullable_to_non_nullable
 as String,authType: null == authType ? _self.authType : authType // ignore: cast_nullable_to_non_nullable
 as AuthStrategyType,trustSelfSigned: null == trustSelfSigned ? _self.trustSelfSigned : trustSelfSigned // ignore: cast_nullable_to_non_nullable
-as bool,customHeaders: freezed == customHeaders ? _self._customHeaders : customHeaders // ignore: cast_nullable_to_non_nullable
-as Map<String, String>?,
+as bool,caCertPath: freezed == caCertPath ? _self.caCertPath : caCertPath // ignore: cast_nullable_to_non_nullable
+as String?,clientCertPath: freezed == clientCertPath ? _self.clientCertPath : clientCertPath // ignore: cast_nullable_to_non_nullable
+as String?,clientCertPassword: freezed == clientCertPassword ? _self.clientCertPassword : clientCertPassword // ignore: cast_nullable_to_non_nullable
+as String?,customHeaders: freezed == customHeaders ? _self._customHeaders : customHeaders // ignore: cast_nullable_to_non_nullable
+as Map<String, String>?,oidcDiscoveryUrl: freezed == oidcDiscoveryUrl ? _self.oidcDiscoveryUrl : oidcDiscoveryUrl // ignore: cast_nullable_to_non_nullable
+as String?,oidcClientId: freezed == oidcClientId ? _self.oidcClientId : oidcClientId // ignore: cast_nullable_to_non_nullable
+as String?,
   ));
 }
 

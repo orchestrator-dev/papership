@@ -45,12 +45,30 @@ class PaperlessHttpClientFactory {
     }
 
     // 3. Configure TLS
-    if (config.trustSelfSigned) {
+    if (config.trustSelfSigned || config.caCertPath != null || config.clientCertPath != null) {
       dio.httpClientAdapter = IOHttpClientAdapter(
         createHttpClient: () {
-          final client = HttpClient();
-          client.badCertificateCallback =
-              (X509Certificate cert, String host, int port) => true;
+          final SecurityContext context = SecurityContext(withTrustedRoots: true);
+
+          if (config.caCertPath != null) {
+            context.setTrustedCertificates(config.caCertPath!);
+          }
+
+          if (config.clientCertPath != null) {
+            // Note: If credentials.certificateBase64 is available, we could use that.
+            // But per specs, we use clientCertPath from config.
+            context.useCertificateChain(config.clientCertPath!, password: config.clientCertPassword);
+            context.usePrivateKey(config.clientCertPath!, password: config.clientCertPassword);
+          }
+
+          final client = HttpClient(context: context);
+          
+          if (config.trustSelfSigned) {
+            client.badCertificateCallback = (X509Certificate cert, String host, int port) {
+              // TODO: show warning banner in UI as per spec
+              return true;
+            };
+          }
           return client;
         },
       );

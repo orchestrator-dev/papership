@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$AuthCredentials {
 
- String? get serverId; String? get baseUrl; String? get token; String? get refreshToken; String? get username; String? get password;
+ String? get serverId; String? get baseUrl; String? get token; String? get refreshToken; String? get username; String? get password; Map<String, String>? get customHeaders; String? get certificateBase64; String? get oidcDiscoveryUrl; String? get oidcClientId;
 /// Create a copy of AuthCredentials
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $AuthCredentialsCopyWith<AuthCredentials> get copyWith => _$AuthCredentialsCopyW
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is AuthCredentials&&(identical(other.serverId, serverId) || other.serverId == serverId)&&(identical(other.baseUrl, baseUrl) || other.baseUrl == baseUrl)&&(identical(other.token, token) || other.token == token)&&(identical(other.refreshToken, refreshToken) || other.refreshToken == refreshToken)&&(identical(other.username, username) || other.username == username)&&(identical(other.password, password) || other.password == password));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is AuthCredentials&&(identical(other.serverId, serverId) || other.serverId == serverId)&&(identical(other.baseUrl, baseUrl) || other.baseUrl == baseUrl)&&(identical(other.token, token) || other.token == token)&&(identical(other.refreshToken, refreshToken) || other.refreshToken == refreshToken)&&(identical(other.username, username) || other.username == username)&&(identical(other.password, password) || other.password == password)&&const DeepCollectionEquality().equals(other.customHeaders, customHeaders)&&(identical(other.certificateBase64, certificateBase64) || other.certificateBase64 == certificateBase64)&&(identical(other.oidcDiscoveryUrl, oidcDiscoveryUrl) || other.oidcDiscoveryUrl == oidcDiscoveryUrl)&&(identical(other.oidcClientId, oidcClientId) || other.oidcClientId == oidcClientId));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,serverId,baseUrl,token,refreshToken,username,password);
+int get hashCode => Object.hash(runtimeType,serverId,baseUrl,token,refreshToken,username,password,const DeepCollectionEquality().hash(customHeaders),certificateBase64,oidcDiscoveryUrl,oidcClientId);
 
 @override
 String toString() {
-  return 'AuthCredentials(serverId: $serverId, baseUrl: $baseUrl, token: $token, refreshToken: $refreshToken, username: $username, password: $password)';
+  return 'AuthCredentials(serverId: $serverId, baseUrl: $baseUrl, token: $token, refreshToken: $refreshToken, username: $username, password: $password, customHeaders: $customHeaders, certificateBase64: $certificateBase64, oidcDiscoveryUrl: $oidcDiscoveryUrl, oidcClientId: $oidcClientId)';
 }
 
 
@@ -48,7 +48,7 @@ abstract mixin class $AuthCredentialsCopyWith<$Res>  {
   factory $AuthCredentialsCopyWith(AuthCredentials value, $Res Function(AuthCredentials) _then) = _$AuthCredentialsCopyWithImpl;
 @useResult
 $Res call({
- String? serverId, String? baseUrl, String? token, String? refreshToken, String? username, String? password
+ String? serverId, String? baseUrl, String? token, String? refreshToken, String? username, String? password, Map<String, String>? customHeaders, String? certificateBase64, String? oidcDiscoveryUrl, String? oidcClientId
 });
 
 
@@ -65,7 +65,7 @@ class _$AuthCredentialsCopyWithImpl<$Res>
 
 /// Create a copy of AuthCredentials
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? serverId = freezed,Object? baseUrl = freezed,Object? token = freezed,Object? refreshToken = freezed,Object? username = freezed,Object? password = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? serverId = freezed,Object? baseUrl = freezed,Object? token = freezed,Object? refreshToken = freezed,Object? username = freezed,Object? password = freezed,Object? customHeaders = freezed,Object? certificateBase64 = freezed,Object? oidcDiscoveryUrl = freezed,Object? oidcClientId = freezed,}) {
   return _then(_self.copyWith(
 serverId: freezed == serverId ? _self.serverId : serverId // ignore: cast_nullable_to_non_nullable
 as String?,baseUrl: freezed == baseUrl ? _self.baseUrl : baseUrl // ignore: cast_nullable_to_non_nullable
@@ -73,6 +73,10 @@ as String?,token: freezed == token ? _self.token : token // ignore: cast_nullabl
 as String?,refreshToken: freezed == refreshToken ? _self.refreshToken : refreshToken // ignore: cast_nullable_to_non_nullable
 as String?,username: freezed == username ? _self.username : username // ignore: cast_nullable_to_non_nullable
 as String?,password: freezed == password ? _self.password : password // ignore: cast_nullable_to_non_nullable
+as String?,customHeaders: freezed == customHeaders ? _self.customHeaders : customHeaders // ignore: cast_nullable_to_non_nullable
+as Map<String, String>?,certificateBase64: freezed == certificateBase64 ? _self.certificateBase64 : certificateBase64 // ignore: cast_nullable_to_non_nullable
+as String?,oidcDiscoveryUrl: freezed == oidcDiscoveryUrl ? _self.oidcDiscoveryUrl : oidcDiscoveryUrl // ignore: cast_nullable_to_non_nullable
+as String?,oidcClientId: freezed == oidcClientId ? _self.oidcClientId : oidcClientId // ignore: cast_nullable_to_non_nullable
 as String?,
   ));
 }
@@ -158,10 +162,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? serverId,  String? baseUrl,  String? token,  String? refreshToken,  String? username,  String? password)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? serverId,  String? baseUrl,  String? token,  String? refreshToken,  String? username,  String? password,  Map<String, String>? customHeaders,  String? certificateBase64,  String? oidcDiscoveryUrl,  String? oidcClientId)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _AuthCredentials() when $default != null:
-return $default(_that.serverId,_that.baseUrl,_that.token,_that.refreshToken,_that.username,_that.password);case _:
+return $default(_that.serverId,_that.baseUrl,_that.token,_that.refreshToken,_that.username,_that.password,_that.customHeaders,_that.certificateBase64,_that.oidcDiscoveryUrl,_that.oidcClientId);case _:
   return orElse();
 
 }
@@ -179,10 +183,10 @@ return $default(_that.serverId,_that.baseUrl,_that.token,_that.refreshToken,_tha
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? serverId,  String? baseUrl,  String? token,  String? refreshToken,  String? username,  String? password)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? serverId,  String? baseUrl,  String? token,  String? refreshToken,  String? username,  String? password,  Map<String, String>? customHeaders,  String? certificateBase64,  String? oidcDiscoveryUrl,  String? oidcClientId)  $default,) {final _that = this;
 switch (_that) {
 case _AuthCredentials():
-return $default(_that.serverId,_that.baseUrl,_that.token,_that.refreshToken,_that.username,_that.password);case _:
+return $default(_that.serverId,_that.baseUrl,_that.token,_that.refreshToken,_that.username,_that.password,_that.customHeaders,_that.certificateBase64,_that.oidcDiscoveryUrl,_that.oidcClientId);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -199,10 +203,10 @@ return $default(_that.serverId,_that.baseUrl,_that.token,_that.refreshToken,_tha
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? serverId,  String? baseUrl,  String? token,  String? refreshToken,  String? username,  String? password)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? serverId,  String? baseUrl,  String? token,  String? refreshToken,  String? username,  String? password,  Map<String, String>? customHeaders,  String? certificateBase64,  String? oidcDiscoveryUrl,  String? oidcClientId)?  $default,) {final _that = this;
 switch (_that) {
 case _AuthCredentials() when $default != null:
-return $default(_that.serverId,_that.baseUrl,_that.token,_that.refreshToken,_that.username,_that.password);case _:
+return $default(_that.serverId,_that.baseUrl,_that.token,_that.refreshToken,_that.username,_that.password,_that.customHeaders,_that.certificateBase64,_that.oidcDiscoveryUrl,_that.oidcClientId);case _:
   return null;
 
 }
@@ -214,7 +218,7 @@ return $default(_that.serverId,_that.baseUrl,_that.token,_that.refreshToken,_tha
 @JsonSerializable()
 
 class _AuthCredentials implements AuthCredentials {
-  const _AuthCredentials({this.serverId, this.baseUrl, this.token, this.refreshToken, this.username, this.password});
+  const _AuthCredentials({this.serverId, this.baseUrl, this.token, this.refreshToken, this.username, this.password, final  Map<String, String>? customHeaders, this.certificateBase64, this.oidcDiscoveryUrl, this.oidcClientId}): _customHeaders = customHeaders;
   factory _AuthCredentials.fromJson(Map<String, dynamic> json) => _$AuthCredentialsFromJson(json);
 
 @override final  String? serverId;
@@ -223,6 +227,18 @@ class _AuthCredentials implements AuthCredentials {
 @override final  String? refreshToken;
 @override final  String? username;
 @override final  String? password;
+ final  Map<String, String>? _customHeaders;
+@override Map<String, String>? get customHeaders {
+  final value = _customHeaders;
+  if (value == null) return null;
+  if (_customHeaders is EqualUnmodifiableMapView) return _customHeaders;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableMapView(value);
+}
+
+@override final  String? certificateBase64;
+@override final  String? oidcDiscoveryUrl;
+@override final  String? oidcClientId;
 
 /// Create a copy of AuthCredentials
 /// with the given fields replaced by the non-null parameter values.
@@ -237,16 +253,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _AuthCredentials&&(identical(other.serverId, serverId) || other.serverId == serverId)&&(identical(other.baseUrl, baseUrl) || other.baseUrl == baseUrl)&&(identical(other.token, token) || other.token == token)&&(identical(other.refreshToken, refreshToken) || other.refreshToken == refreshToken)&&(identical(other.username, username) || other.username == username)&&(identical(other.password, password) || other.password == password));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _AuthCredentials&&(identical(other.serverId, serverId) || other.serverId == serverId)&&(identical(other.baseUrl, baseUrl) || other.baseUrl == baseUrl)&&(identical(other.token, token) || other.token == token)&&(identical(other.refreshToken, refreshToken) || other.refreshToken == refreshToken)&&(identical(other.username, username) || other.username == username)&&(identical(other.password, password) || other.password == password)&&const DeepCollectionEquality().equals(other._customHeaders, _customHeaders)&&(identical(other.certificateBase64, certificateBase64) || other.certificateBase64 == certificateBase64)&&(identical(other.oidcDiscoveryUrl, oidcDiscoveryUrl) || other.oidcDiscoveryUrl == oidcDiscoveryUrl)&&(identical(other.oidcClientId, oidcClientId) || other.oidcClientId == oidcClientId));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,serverId,baseUrl,token,refreshToken,username,password);
+int get hashCode => Object.hash(runtimeType,serverId,baseUrl,token,refreshToken,username,password,const DeepCollectionEquality().hash(_customHeaders),certificateBase64,oidcDiscoveryUrl,oidcClientId);
 
 @override
 String toString() {
-  return 'AuthCredentials(serverId: $serverId, baseUrl: $baseUrl, token: $token, refreshToken: $refreshToken, username: $username, password: $password)';
+  return 'AuthCredentials(serverId: $serverId, baseUrl: $baseUrl, token: $token, refreshToken: $refreshToken, username: $username, password: $password, customHeaders: $customHeaders, certificateBase64: $certificateBase64, oidcDiscoveryUrl: $oidcDiscoveryUrl, oidcClientId: $oidcClientId)';
 }
 
 
@@ -257,7 +273,7 @@ abstract mixin class _$AuthCredentialsCopyWith<$Res> implements $AuthCredentials
   factory _$AuthCredentialsCopyWith(_AuthCredentials value, $Res Function(_AuthCredentials) _then) = __$AuthCredentialsCopyWithImpl;
 @override @useResult
 $Res call({
- String? serverId, String? baseUrl, String? token, String? refreshToken, String? username, String? password
+ String? serverId, String? baseUrl, String? token, String? refreshToken, String? username, String? password, Map<String, String>? customHeaders, String? certificateBase64, String? oidcDiscoveryUrl, String? oidcClientId
 });
 
 
@@ -274,7 +290,7 @@ class __$AuthCredentialsCopyWithImpl<$Res>
 
 /// Create a copy of AuthCredentials
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? serverId = freezed,Object? baseUrl = freezed,Object? token = freezed,Object? refreshToken = freezed,Object? username = freezed,Object? password = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? serverId = freezed,Object? baseUrl = freezed,Object? token = freezed,Object? refreshToken = freezed,Object? username = freezed,Object? password = freezed,Object? customHeaders = freezed,Object? certificateBase64 = freezed,Object? oidcDiscoveryUrl = freezed,Object? oidcClientId = freezed,}) {
   return _then(_AuthCredentials(
 serverId: freezed == serverId ? _self.serverId : serverId // ignore: cast_nullable_to_non_nullable
 as String?,baseUrl: freezed == baseUrl ? _self.baseUrl : baseUrl // ignore: cast_nullable_to_non_nullable
@@ -282,6 +298,10 @@ as String?,token: freezed == token ? _self.token : token // ignore: cast_nullabl
 as String?,refreshToken: freezed == refreshToken ? _self.refreshToken : refreshToken // ignore: cast_nullable_to_non_nullable
 as String?,username: freezed == username ? _self.username : username // ignore: cast_nullable_to_non_nullable
 as String?,password: freezed == password ? _self.password : password // ignore: cast_nullable_to_non_nullable
+as String?,customHeaders: freezed == customHeaders ? _self._customHeaders : customHeaders // ignore: cast_nullable_to_non_nullable
+as Map<String, String>?,certificateBase64: freezed == certificateBase64 ? _self.certificateBase64 : certificateBase64 // ignore: cast_nullable_to_non_nullable
+as String?,oidcDiscoveryUrl: freezed == oidcDiscoveryUrl ? _self.oidcDiscoveryUrl : oidcDiscoveryUrl // ignore: cast_nullable_to_non_nullable
+as String?,oidcClientId: freezed == oidcClientId ? _self.oidcClientId : oidcClientId // ignore: cast_nullable_to_non_nullable
 as String?,
   ));
 }

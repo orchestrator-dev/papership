@@ -12,6 +12,10 @@ abstract class AuthCredentials with _$AuthCredentials {
     String? refreshToken,
     String? username,
     String? password,
+    Map<String, String>? customHeaders,
+    String? certificateBase64,
+    String? oidcDiscoveryUrl,
+    String? oidcClientId,
   }) = _AuthCredentials;
 
   factory AuthCredentials.fromJson(Map<String, dynamic> json) => _$AuthCredentialsFromJson(json);
