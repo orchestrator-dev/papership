@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scan:ScannerCapabilities xmlns:pwg="http://www.pwg.org/schemas/2010/12/sm" xmlns:scan="http://schemas.hp.com/imaging/escl/2011/05/03">
+  <pwg:Version>2.5</pwg:Version>
+  <pwg:MakeAndModel>HP LaserJet MFP M234sdwe</pwg:MakeAndModel>
+  <pwg:Platen>
+    <scan:PlatenInputCaps>
+      <scan:MaxWidth>2550</scan:MaxWidth>
+      <scan:MaxHeight>3300</scan:MaxHeight>
+    </scan:PlatenInputCaps>
+  </pwg:Platen>
+  <scan:Adf>
+    <scan:AdfSimplexInputCaps>
+      <scan:MaxWidth>2550</scan:MaxWidth>
+      <scan:MaxHeight>4200</scan:MaxHeight>
+    </scan:AdfSimplexInputCaps>
+  </scan:Adf>
+  <scan:ColorModes>
+    <pwg:ColorMode>BlackAndWhite1</pwg:ColorMode>
+    <pwg:ColorMode>Grayscale8</pwg:ColorMode>
+  </scan:ColorModes>
+  <scan:DiscreteResolutions>
+    <scan:DiscreteResolution>
+      <scan:XResolution>150</scan:XResolution>
+      <scan:YResolution>150</scan:YResolution>
+    </scan:DiscreteResolution>
+    <scan:DiscreteResolution>
+      <scan:XResolution>300</scan:XResolution>
+      <scan:YResolution>300</scan:YResolution>
+    </scan:DiscreteResolution>
+  </scan:DiscreteResolutions>
+  <scan:DocumentFormats>
+    <pwg:DocumentFormat>application/pdf</pwg:DocumentFormat>
+  </scan:DocumentFormats>
+</scan:ScannerCapabilities>
