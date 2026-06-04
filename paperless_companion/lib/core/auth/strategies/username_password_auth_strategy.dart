@@ -1,8 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:paperless_companion/core/auth/auth_strategy.dart';
-import 'package:paperless_companion/core/auth/models/auth_config.dart';
-import 'package:paperless_companion/core/auth/models/auth_credentials.dart';
+
 
 class UsernamePasswordAuthStrategy implements AuthStrategy {
   final Dio dio;

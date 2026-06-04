@@ -7,4 +7,5 @@
 - [x] Step 2: Auth strategies (basic + token)
 
 ## Phase 3: HTTP Client & API layer
-- [ ] Step 3: HTTP client factory
+- [x] Step 3: HTTP client factory
+- [ ] Step 4: Paperless-NGX API DTOs and Retrofit Service

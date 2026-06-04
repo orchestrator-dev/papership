@@ -1,12 +1,14 @@
 import 'package:dio/dio.dart';
-import 'package:paperless_companion/core/auth/models/auth_config.dart';
-import 'package:paperless_companion/core/auth/models/auth_credentials.dart';
+import 'models/auth_credentials.dart';
+import 'models/auth_config.dart';
+
+export 'models/auth_credentials.dart';
+export 'models/auth_config.dart';
 
 abstract class AuthStrategy {
   String get id;
   String get displayName;
 
-  /// Called once to authenticate. Returns persisted credentials.
   Future<AuthCredentials> authenticate(AuthConfig config);
 
   /// Called before each request. Mutates [options].

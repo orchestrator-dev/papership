@@ -1,7 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:paperless_companion/core/auth/auth_strategy.dart';
-import 'package:paperless_companion/core/auth/models/auth_config.dart';
-import 'package:paperless_companion/core/auth/models/auth_credentials.dart';
 
 class ApiTokenAuthStrategy implements AuthStrategy {
   @override
