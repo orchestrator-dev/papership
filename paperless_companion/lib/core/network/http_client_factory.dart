@@ -4,6 +4,7 @@ import 'package:dio/io.dart';
 import 'package:dio_smart_retry/dio_smart_retry.dart';
 import 'package:flutter/foundation.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
+import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
 
 import '../auth/auth_strategy.dart';
 import '../auth/server_config.dart';
@@ -55,7 +56,20 @@ class PaperlessHttpClientFactory {
       );
     }
 
-    // 4. Retry interceptor
+    // 4. Cache interceptor (5-min TTL)
+    final cacheOptions = CacheOptions(
+      store: MemCacheStore(),
+      policy: CachePolicy.request,
+      hitCacheOnErrorExcept: [401, 403],
+      maxStale: const Duration(minutes: 5),
+      priority: CachePriority.normal,
+      cipher: null,
+      keyBuilder: CacheOptions.defaultCacheKeyBuilder,
+      allowPostMethod: false,
+    );
+    dio.interceptors.add(DioCacheInterceptor(options: cacheOptions));
+
+    // 5. Retry interceptor
     dio.interceptors.add(
       RetryInterceptor(
         dio: dio,
