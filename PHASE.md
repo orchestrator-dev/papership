@@ -8,4 +8,7 @@
 
 ## Phase 3: HTTP Client & API layer
 - [x] Step 3: HTTP client factory
-- [ ] Step 4: Paperless-NGX API DTOs and Retrofit Service
+- [x] Step 4: Paperless-NGX API DTOs and Retrofit Service
+
+## Phase 4: Document Browser
+- [ ] Step 5: Document List — BLoC, Repository, and Screen
