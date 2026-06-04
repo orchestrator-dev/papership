@@ -5,6 +5,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:paperless_companion/core/auth/auth_strategy.dart';
 import 'package:paperless_companion/core/auth/server_config.dart';
+import 'package:paperless_companion/core/auth/models/auth_strategy_type.dart';
 import 'package:paperless_companion/core/network/http_client_factory.dart';
 
 class MockAuthStrategy extends Mock implements AuthStrategy {}
@@ -44,7 +45,7 @@ void main() {
       id: 'test',
       displayName: 'Test',
       baseUrl: 'http://test.lan',
-      authType: AuthStrategyType.token,
+      authType: AuthStrategyType.apiToken,
     );
 
     when(() => mockStrategy.applyToRequest(any(), any())).thenAnswer((_) async {});

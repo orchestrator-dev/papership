@@ -1,9 +1,9 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import 'models/auth_strategy_type.dart';
+
 part 'server_config.freezed.dart';
 part 'server_config.g.dart';
-
-enum AuthStrategyType { token, basic, oidc, custom }
 
 @freezed
 abstract class ServerConfig with _$ServerConfig {

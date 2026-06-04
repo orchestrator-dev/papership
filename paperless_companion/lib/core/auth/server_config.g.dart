@@ -39,8 +39,9 @@ Map<String, dynamic> _$ServerConfigToJson(_ServerConfig instance) =>
     };
 
 const _$AuthStrategyTypeEnumMap = {
-  AuthStrategyType.token: 'token',
-  AuthStrategyType.basic: 'basic',
+  AuthStrategyType.usernamePassword: 'usernamePassword',
+  AuthStrategyType.apiToken: 'apiToken',
   AuthStrategyType.oidc: 'oidc',
-  AuthStrategyType.custom: 'custom',
+  AuthStrategyType.customHeaders: 'customHeaders',
+  AuthStrategyType.mtls: 'mtls',
 };

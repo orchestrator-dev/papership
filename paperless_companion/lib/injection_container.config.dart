@@ -10,9 +10,11 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:dio/dio.dart' as _i361;
+import 'package:flutter_secure_storage/flutter_secure_storage.dart' as _i558;
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
 
+import 'core/auth/server_config_repository.dart' as _i456;
 import 'core/network/network_module.dart' as _i550;
 import 'data/remote/services/paperless_api_service.dart' as _i359;
 import 'data/remote/services/paperless_api_service_impl.dart' as _i175;
@@ -26,6 +28,7 @@ import 'domain/usecases/update_document_usecase.dart' as _i840;
 import 'features/documents/presentation/bloc/document_detail_cubit.dart'
     as _i105;
 import 'features/documents/presentation/bloc/document_list_cubit.dart' as _i587;
+import 'features/settings/presentation/bloc/server_config_cubit.dart' as _i11;
 
 extension GetItInjectableX on _i174.GetIt {
   // initializes the registration of main-scope dependencies inside of GetIt
@@ -36,6 +39,12 @@ extension GetItInjectableX on _i174.GetIt {
     final gh = _i526.GetItHelper(this, environment, environmentFilter);
     final networkModule = _$NetworkModule();
     gh.lazySingleton<_i361.Dio>(() => networkModule.dio);
+    gh.lazySingleton<_i558.FlutterSecureStorage>(
+      () => networkModule.flutterSecureStorage,
+    );
+    gh.lazySingleton<_i456.ServerConfigRepository>(
+      () => _i456.ServerConfigRepositoryImpl(gh<_i558.FlutterSecureStorage>()),
+    );
     gh.lazySingleton<_i359.PaperlessApiService>(
       () => networkModule.getPaperlessApiService(gh<_i361.Dio>()),
     );
@@ -44,6 +53,12 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.lazySingleton<_i822.DocumentRepository>(
       () => _i394.DocumentRepositoryImpl(gh<_i359.PaperlessApiService>()),
+    );
+    gh.factory<_i11.ServerConfigCubit>(
+      () => _i11.ServerConfigCubit(
+        gh<_i456.ServerConfigRepository>(),
+        gh<_i361.Dio>(),
+      ),
     );
     gh.lazySingleton<_i1033.GetDocumentsUseCase>(
       () => _i1033.GetDocumentsUseCase(gh<_i822.DocumentRepository>()),

@@ -11,4 +11,9 @@
 - [x] Step 4: Paperless-NGX API DTOs and Retrofit Service
 
 ## Phase 4: Document Browser
-- [ ] Step 5: Document List — BLoC, Repository, and Screen
+- [x] Step 5: Document List — BLoC, Repository, and Screen
+- [x] Step 6: Document Detail Screen
+
+## Phase 5: Advanced Auth & Settings
+- [x] Step 7: Auth Strategies — OIDC, Custom Headers, and mTLS
+- [ ] Step 8: Settings — Server Configuration Wizard
