@@ -9,6 +9,8 @@ import '../../../../domain/models/document_filter.dart';
 import '../bloc/document_list_cubit.dart';
 import '../bloc/document_list_state.dart';
 import '../widgets/document_list_tile.dart';
+import '../../../upload/data/pending_upload_repository.dart';
+import 'package:go_router/go_router.dart';
 
 class DocumentListScreen extends StatefulWidget {
   const DocumentListScreen({super.key});
@@ -22,6 +24,7 @@ class _DocumentListScreenState extends State<DocumentListScreen> {
   final TextEditingController _searchController = TextEditingController();
   Timer? _debounce;
   late final DocumentListCubit _cubit;
+  int _pendingUploadCount = 0;
 
   @override
   void initState() {
@@ -30,6 +33,17 @@ class _DocumentListScreenState extends State<DocumentListScreen> {
     _scrollController.addListener(_onScroll);
     if (_cubit.state == const DocumentListState.initial()) {
       _cubit.loadDocuments();
+    }
+    _loadPendingCount();
+  }
+
+  Future<void> _loadPendingCount() async {
+    final repo = GetIt.I<PendingUploadRepository>();
+    final uploads = await repo.getPendingUploads();
+    if (mounted) {
+      setState(() {
+        _pendingUploadCount = uploads.length;
+      });
     }
   }
 
@@ -78,6 +92,12 @@ class _DocumentListScreenState extends State<DocumentListScreen> {
       child: Scaffold(
         appBar: AppBar(
           title: const Text('Documents'),
+          actions: [
+            IconButton(
+              icon: const Icon(Icons.settings),
+              onPressed: () => context.push('/settings'),
+            ),
+          ],
           bottom: PreferredSize(
             preferredSize: const Size.fromHeight(130),
             child: Column(
@@ -136,6 +156,14 @@ class _DocumentListScreenState extends State<DocumentListScreen> {
                   : _buildList(s.documents, false),
             );
           },
+        ),
+        floatingActionButton: Badge(
+          isLabelVisible: _pendingUploadCount > 0,
+          label: Text('$_pendingUploadCount'),
+          child: FloatingActionButton(
+            onPressed: () => context.push('/scan'),
+            child: const Icon(Icons.add),
+          ),
         ),
       ),
     );

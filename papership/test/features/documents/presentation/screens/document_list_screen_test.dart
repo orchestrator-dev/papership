@@ -11,6 +11,7 @@ import 'package:papership/features/documents/presentation/bloc/document_list_cub
 import 'package:papership/features/documents/presentation/bloc/document_list_state.dart';
 import 'package:papership/domain/models/document_filter.dart';
 import 'package:papership/domain/models/document.dart';
+import 'package:papership/features/upload/data/pending_upload_repository.dart';
 
 class MockDocumentListCubit extends MockCubit<DocumentListState> implements DocumentListCubit {}
 
@@ -18,6 +19,8 @@ class MockDio extends Mock implements Dio {
   @override
   BaseOptions get options => BaseOptions(baseUrl: 'http://test.lan');
 }
+
+class MockPendingUploadRepository extends Mock implements PendingUploadRepository {}
 
 void main() {
   late MockDocumentListCubit mockCubit;
@@ -28,7 +31,10 @@ void main() {
 
   setUp(() {
     mockCubit = MockDocumentListCubit();
+    final mockRepo = MockPendingUploadRepository();
+    when(() => mockRepo.getPendingUploads()).thenAnswer((_) async => []);
     GetIt.I.registerSingleton<DocumentListCubit>(mockCubit);
+    GetIt.I.registerSingleton<PendingUploadRepository>(mockRepo);
     GetIt.I.registerSingleton<Dio>(MockDio());
   });
 

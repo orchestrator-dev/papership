@@ -1,5 +1,6 @@
 import 'package:go_router/go_router.dart';
 import 'screens.dart';
+import '../features/upload/presentation/pending_uploads_screen.dart';
 
 final appRouter = GoRouter(
   initialLocation: '/',
@@ -33,6 +34,10 @@ final appRouter = GoRouter(
       path: '/settings',
       builder: (context, state) => const SettingsScreen(),
       routes: [
+        GoRoute(
+          path: 'pending_uploads',
+          builder: (context, state) => const PendingUploadsScreen(),
+        ),
         GoRoute(
           path: 'server',
           builder: (context, state) => const ServerConfigWizard(),

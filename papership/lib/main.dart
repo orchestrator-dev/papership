@@ -2,10 +2,14 @@ import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 import 'app/router.dart';
 import 'injection_container.dart';
-
+import 'package:workmanager/workmanager.dart';
+import 'core/worker/background_upload_worker.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   configureDependencies();
+  Workmanager().initialize(
+    callbackDispatcher,
+  );
   runApp(const PapershipApp());
 }
 

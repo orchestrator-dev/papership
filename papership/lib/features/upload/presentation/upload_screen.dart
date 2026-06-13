@@ -9,6 +9,13 @@ import '../../../../domain/usecases/upload_document_usecase.dart';
 import 'widgets/tag_picker_sheet.dart';
 import 'widgets/correspondent_picker_sheet.dart';
 import 'widgets/document_type_picker_sheet.dart';
+import 'package:uuid/uuid.dart';
+import 'package:path_provider/path_provider.dart';
+import 'dart:io';
+import 'package:workmanager/workmanager.dart';
+import '../models/pending_upload.dart';
+import '../data/pending_upload_repository.dart';
+import '../../../../injection_container.dart';
 
 class UploadScreen extends StatefulWidget {
   final List<int> pdfBytes;
@@ -276,10 +283,7 @@ class UploadScreenState extends State<UploadScreen> {
             ),
             const SizedBox(height: 8),
             OutlinedButton(
-              onPressed: () {
-                // "Upload Later" secondary button
-                Navigator.pop(context);
-              },
+              onPressed: _uploadLater,
               child: const Text('Upload Later'),
             ),
           ],
@@ -300,6 +304,47 @@ class UploadScreenState extends State<UploadScreen> {
         asn: _asnController.text.isNotEmpty ? _asnController.text : null,
       );
       context.read<UploadCubit>().uploadDocument(request);
+    }
+  }
+
+  Future<void> _uploadLater() async {
+    if (!(_formKey.currentState?.validate() ?? false)) return;
+
+    final id = const Uuid().v4();
+    final cacheDir = await getApplicationCacheDirectory();
+    final file = File('${cacheDir.path}/$id.pdf');
+    await file.writeAsBytes(widget.pdfBytes);
+
+    final metadata = UploadMetadata(
+      title: _titleController.text,
+      tags: _selectedTagIds.isNotEmpty ? _selectedTagIds : null,
+      correspondentId: _selectedCorrespondentId,
+      documentTypeId: _selectedDocumentTypeId,
+      createdDate: _createdDate.toIso8601String(),
+      asn: _asnController.text.isNotEmpty ? _asnController.text : null,
+    );
+
+    final pendingUpload = PendingUpload(
+      id: id,
+      pdfPath: file.path,
+      metadata: metadata,
+      createdAt: DateTime.now(),
+    );
+
+    await sl<PendingUploadRepository>().savePendingUpload(pendingUpload);
+
+    Workmanager().registerOneOffTask(
+      "com.papership.upload_task",
+      "com.papership.upload",
+      constraints: Constraints(networkType: NetworkType.connected),
+      existingWorkPolicy: ExistingWorkPolicy.replace,
+    );
+
+    if (mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Queued for upload')),
+      );
+      Navigator.pop(context);
     }
   }
 }

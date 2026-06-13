@@ -36,6 +36,7 @@ import 'domain/usecases/get_document_preview_usecase.dart' as _i34;
 import 'domain/usecases/get_document_usecase.dart' as _i117;
 import 'domain/usecases/get_documents_usecase.dart' as _i1033;
 import 'domain/usecases/update_document_usecase.dart' as _i840;
+import 'domain/usecases/upload_document_usecase.dart' as _i887;
 import 'features/documents/presentation/bloc/document_detail_cubit.dart'
     as _i105;
 import 'features/documents/presentation/bloc/document_list_cubit.dart' as _i587;
@@ -43,6 +44,8 @@ import 'features/scan_session/presentation/bloc/camera_capture_cubit.dart'
     as _i862;
 import 'features/scanner/presentation/bloc/network_scan_cubit.dart' as _i929;
 import 'features/settings/presentation/bloc/server_config_cubit.dart' as _i11;
+import 'features/upload/bloc/upload_cubit.dart' as _i139;
+import 'features/upload/data/pending_upload_repository.dart' as _i967;
 
 extension GetItInjectableX on _i174.GetIt {
   // initializes the registration of main-scope dependencies inside of GetIt
@@ -60,6 +63,9 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i361.Dio>(() => networkModule.dio);
     gh.lazySingleton<_i558.FlutterSecureStorage>(
       () => networkModule.flutterSecureStorage,
+    );
+    gh.lazySingleton<_i967.PendingUploadRepository>(
+      () => _i967.PendingUploadRepositoryImpl(gh<_i558.FlutterSecureStorage>()),
     );
     gh.lazySingleton<_i456.ServerConfigRepository>(
       () => _i456.ServerConfigRepositoryImpl(gh<_i558.FlutterSecureStorage>()),
@@ -131,6 +137,15 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i128.EsclScanClientImpl(
         gh<_i914.PaperlessHttpClientFactory>(),
         gh<_i168.EsclScanSettingsXmlBuilder>(),
+      ),
+    );
+    gh.factory<_i887.UploadDocumentUseCase>(
+      () => _i887.UploadDocumentUseCase(gh<_i175.PaperlessApiServiceImpl>()),
+    );
+    gh.factory<_i139.UploadCubit>(
+      () => _i139.UploadCubit(
+        gh<_i887.UploadDocumentUseCase>(),
+        gh<_i175.PaperlessApiServiceImpl>(),
       ),
     );
     gh.factory<_i929.NetworkScanCubit>(
