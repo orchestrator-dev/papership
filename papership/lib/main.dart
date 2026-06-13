@@ -9,7 +9,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:path_provider/path_provider.dart';
 import 'features/settings/presentation/bloc/settings_cubit.dart';
 import 'features/settings/presentation/bloc/settings_state.dart';
-
+import 'shared/theme/theme.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   
@@ -56,14 +56,8 @@ class PapershipApp extends StatelessWidget {
             builder: (context, settingsState) {
               return MaterialApp.router(
                 title: 'Papership',
-                theme: ThemeData(
-                  useMaterial3: true,
-                  colorScheme: lightColorScheme,
-                ),
-                darkTheme: ThemeData(
-                  useMaterial3: true,
-                  colorScheme: darkColorScheme,
-                ),
+                theme: AppTheme.getTheme(colorScheme: lightColorScheme),
+                darkTheme: AppTheme.getTheme(colorScheme: darkColorScheme),
                 themeMode: settingsState.themeMode,
                 routerConfig: appRouter,
               );
