@@ -120,3 +120,5 @@ app.*.symbols
 
 # Custom scripts
 resume.sh
+SPEC.md
+prompts/
