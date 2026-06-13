@@ -5,12 +5,21 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:papership/features/scan_session/bloc/scan_session_cubit.dart';
 import 'package:papership/features/scan_session/models/scan_session.dart';
 import 'package:papership/features/scan_session/presentation/scan_session_screen.dart';
+import 'package:mocktail/mocktail.dart';
+import 'package:papership/domain/usecases/generate_pdf_usecase.dart';
+
+class MockGeneratePdfUseCase extends Mock implements GeneratePdfUseCase {}
 
 void main() {
   late ScanSessionCubit cubit;
+  late MockGeneratePdfUseCase mockGeneratePdfUseCase;
 
   setUp(() {
-    cubit = ScanSessionCubit(sessionId: 'test-session-1');
+    mockGeneratePdfUseCase = MockGeneratePdfUseCase();
+    cubit = ScanSessionCubit(
+      sessionId: 'test-session-1',
+      generatePdfUseCase: mockGeneratePdfUseCase,
+    );
   });
 
   tearDown(() {

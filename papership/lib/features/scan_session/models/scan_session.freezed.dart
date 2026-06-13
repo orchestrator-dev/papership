@@ -292,7 +292,7 @@ as double?,
 /// @nodoc
 mixin _$ScanSession {
 
- String get id; List<ScannedPage> get pages; ScanSessionStatus get status; String? get uploadTitle; List<int>? get tagIds; int? get correspondentId; int? get documentTypeId; DateTime? get createdDate; String? get storagePath; String? get asn; String? get selectedPageId;
+ String get id; List<ScannedPage> get pages; ScanSessionStatus get status; String? get uploadTitle; List<int>? get tagIds; int? get correspondentId; int? get documentTypeId; DateTime? get createdDate; String? get storagePath; String? get asn; String? get selectedPageId;@JsonKey(includeFromJson: false, includeToJson: false) Uint8List? get generatedPdfBytes;
 /// Create a copy of ScanSession
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -303,16 +303,16 @@ $ScanSessionCopyWith<ScanSession> get copyWith => _$ScanSessionCopyWithImpl<Scan
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ScanSession&&(identical(other.id, id) || other.id == id)&&const DeepCollectionEquality().equals(other.pages, pages)&&(identical(other.status, status) || other.status == status)&&(identical(other.uploadTitle, uploadTitle) || other.uploadTitle == uploadTitle)&&const DeepCollectionEquality().equals(other.tagIds, tagIds)&&(identical(other.correspondentId, correspondentId) || other.correspondentId == correspondentId)&&(identical(other.documentTypeId, documentTypeId) || other.documentTypeId == documentTypeId)&&(identical(other.createdDate, createdDate) || other.createdDate == createdDate)&&(identical(other.storagePath, storagePath) || other.storagePath == storagePath)&&(identical(other.asn, asn) || other.asn == asn)&&(identical(other.selectedPageId, selectedPageId) || other.selectedPageId == selectedPageId));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ScanSession&&(identical(other.id, id) || other.id == id)&&const DeepCollectionEquality().equals(other.pages, pages)&&(identical(other.status, status) || other.status == status)&&(identical(other.uploadTitle, uploadTitle) || other.uploadTitle == uploadTitle)&&const DeepCollectionEquality().equals(other.tagIds, tagIds)&&(identical(other.correspondentId, correspondentId) || other.correspondentId == correspondentId)&&(identical(other.documentTypeId, documentTypeId) || other.documentTypeId == documentTypeId)&&(identical(other.createdDate, createdDate) || other.createdDate == createdDate)&&(identical(other.storagePath, storagePath) || other.storagePath == storagePath)&&(identical(other.asn, asn) || other.asn == asn)&&(identical(other.selectedPageId, selectedPageId) || other.selectedPageId == selectedPageId)&&const DeepCollectionEquality().equals(other.generatedPdfBytes, generatedPdfBytes));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,id,const DeepCollectionEquality().hash(pages),status,uploadTitle,const DeepCollectionEquality().hash(tagIds),correspondentId,documentTypeId,createdDate,storagePath,asn,selectedPageId);
+int get hashCode => Object.hash(runtimeType,id,const DeepCollectionEquality().hash(pages),status,uploadTitle,const DeepCollectionEquality().hash(tagIds),correspondentId,documentTypeId,createdDate,storagePath,asn,selectedPageId,const DeepCollectionEquality().hash(generatedPdfBytes));
 
 @override
 String toString() {
-  return 'ScanSession(id: $id, pages: $pages, status: $status, uploadTitle: $uploadTitle, tagIds: $tagIds, correspondentId: $correspondentId, documentTypeId: $documentTypeId, createdDate: $createdDate, storagePath: $storagePath, asn: $asn, selectedPageId: $selectedPageId)';
+  return 'ScanSession(id: $id, pages: $pages, status: $status, uploadTitle: $uploadTitle, tagIds: $tagIds, correspondentId: $correspondentId, documentTypeId: $documentTypeId, createdDate: $createdDate, storagePath: $storagePath, asn: $asn, selectedPageId: $selectedPageId, generatedPdfBytes: $generatedPdfBytes)';
 }
 
 
@@ -323,7 +323,7 @@ abstract mixin class $ScanSessionCopyWith<$Res>  {
   factory $ScanSessionCopyWith(ScanSession value, $Res Function(ScanSession) _then) = _$ScanSessionCopyWithImpl;
 @useResult
 $Res call({
- String id, List<ScannedPage> pages, ScanSessionStatus status, String? uploadTitle, List<int>? tagIds, int? correspondentId, int? documentTypeId, DateTime? createdDate, String? storagePath, String? asn, String? selectedPageId
+ String id, List<ScannedPage> pages, ScanSessionStatus status, String? uploadTitle, List<int>? tagIds, int? correspondentId, int? documentTypeId, DateTime? createdDate, String? storagePath, String? asn, String? selectedPageId,@JsonKey(includeFromJson: false, includeToJson: false) Uint8List? generatedPdfBytes
 });
 
 
@@ -340,7 +340,7 @@ class _$ScanSessionCopyWithImpl<$Res>
 
 /// Create a copy of ScanSession
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? pages = null,Object? status = null,Object? uploadTitle = freezed,Object? tagIds = freezed,Object? correspondentId = freezed,Object? documentTypeId = freezed,Object? createdDate = freezed,Object? storagePath = freezed,Object? asn = freezed,Object? selectedPageId = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? pages = null,Object? status = null,Object? uploadTitle = freezed,Object? tagIds = freezed,Object? correspondentId = freezed,Object? documentTypeId = freezed,Object? createdDate = freezed,Object? storagePath = freezed,Object? asn = freezed,Object? selectedPageId = freezed,Object? generatedPdfBytes = freezed,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,pages: null == pages ? _self.pages : pages // ignore: cast_nullable_to_non_nullable
@@ -353,7 +353,8 @@ as int?,createdDate: freezed == createdDate ? _self.createdDate : createdDate //
 as DateTime?,storagePath: freezed == storagePath ? _self.storagePath : storagePath // ignore: cast_nullable_to_non_nullable
 as String?,asn: freezed == asn ? _self.asn : asn // ignore: cast_nullable_to_non_nullable
 as String?,selectedPageId: freezed == selectedPageId ? _self.selectedPageId : selectedPageId // ignore: cast_nullable_to_non_nullable
-as String?,
+as String?,generatedPdfBytes: freezed == generatedPdfBytes ? _self.generatedPdfBytes : generatedPdfBytes // ignore: cast_nullable_to_non_nullable
+as Uint8List?,
   ));
 }
 
@@ -438,10 +439,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  List<ScannedPage> pages,  ScanSessionStatus status,  String? uploadTitle,  List<int>? tagIds,  int? correspondentId,  int? documentTypeId,  DateTime? createdDate,  String? storagePath,  String? asn,  String? selectedPageId)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  List<ScannedPage> pages,  ScanSessionStatus status,  String? uploadTitle,  List<int>? tagIds,  int? correspondentId,  int? documentTypeId,  DateTime? createdDate,  String? storagePath,  String? asn,  String? selectedPageId, @JsonKey(includeFromJson: false, includeToJson: false)  Uint8List? generatedPdfBytes)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _ScanSession() when $default != null:
-return $default(_that.id,_that.pages,_that.status,_that.uploadTitle,_that.tagIds,_that.correspondentId,_that.documentTypeId,_that.createdDate,_that.storagePath,_that.asn,_that.selectedPageId);case _:
+return $default(_that.id,_that.pages,_that.status,_that.uploadTitle,_that.tagIds,_that.correspondentId,_that.documentTypeId,_that.createdDate,_that.storagePath,_that.asn,_that.selectedPageId,_that.generatedPdfBytes);case _:
   return orElse();
 
 }
@@ -459,10 +460,10 @@ return $default(_that.id,_that.pages,_that.status,_that.uploadTitle,_that.tagIds
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  List<ScannedPage> pages,  ScanSessionStatus status,  String? uploadTitle,  List<int>? tagIds,  int? correspondentId,  int? documentTypeId,  DateTime? createdDate,  String? storagePath,  String? asn,  String? selectedPageId)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  List<ScannedPage> pages,  ScanSessionStatus status,  String? uploadTitle,  List<int>? tagIds,  int? correspondentId,  int? documentTypeId,  DateTime? createdDate,  String? storagePath,  String? asn,  String? selectedPageId, @JsonKey(includeFromJson: false, includeToJson: false)  Uint8List? generatedPdfBytes)  $default,) {final _that = this;
 switch (_that) {
 case _ScanSession():
-return $default(_that.id,_that.pages,_that.status,_that.uploadTitle,_that.tagIds,_that.correspondentId,_that.documentTypeId,_that.createdDate,_that.storagePath,_that.asn,_that.selectedPageId);case _:
+return $default(_that.id,_that.pages,_that.status,_that.uploadTitle,_that.tagIds,_that.correspondentId,_that.documentTypeId,_that.createdDate,_that.storagePath,_that.asn,_that.selectedPageId,_that.generatedPdfBytes);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -479,10 +480,10 @@ return $default(_that.id,_that.pages,_that.status,_that.uploadTitle,_that.tagIds
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  List<ScannedPage> pages,  ScanSessionStatus status,  String? uploadTitle,  List<int>? tagIds,  int? correspondentId,  int? documentTypeId,  DateTime? createdDate,  String? storagePath,  String? asn,  String? selectedPageId)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  List<ScannedPage> pages,  ScanSessionStatus status,  String? uploadTitle,  List<int>? tagIds,  int? correspondentId,  int? documentTypeId,  DateTime? createdDate,  String? storagePath,  String? asn,  String? selectedPageId, @JsonKey(includeFromJson: false, includeToJson: false)  Uint8List? generatedPdfBytes)?  $default,) {final _that = this;
 switch (_that) {
 case _ScanSession() when $default != null:
-return $default(_that.id,_that.pages,_that.status,_that.uploadTitle,_that.tagIds,_that.correspondentId,_that.documentTypeId,_that.createdDate,_that.storagePath,_that.asn,_that.selectedPageId);case _:
+return $default(_that.id,_that.pages,_that.status,_that.uploadTitle,_that.tagIds,_that.correspondentId,_that.documentTypeId,_that.createdDate,_that.storagePath,_that.asn,_that.selectedPageId,_that.generatedPdfBytes);case _:
   return null;
 
 }
@@ -494,7 +495,7 @@ return $default(_that.id,_that.pages,_that.status,_that.uploadTitle,_that.tagIds
 
 
 class _ScanSession implements ScanSession {
-  const _ScanSession({required this.id, required final  List<ScannedPage> pages, this.status = ScanSessionStatus.idle, this.uploadTitle, final  List<int>? tagIds, this.correspondentId, this.documentTypeId, this.createdDate, this.storagePath, this.asn, this.selectedPageId}): _pages = pages,_tagIds = tagIds;
+  const _ScanSession({required this.id, required final  List<ScannedPage> pages, this.status = ScanSessionStatus.idle, this.uploadTitle, final  List<int>? tagIds, this.correspondentId, this.documentTypeId, this.createdDate, this.storagePath, this.asn, this.selectedPageId, @JsonKey(includeFromJson: false, includeToJson: false) this.generatedPdfBytes}): _pages = pages,_tagIds = tagIds;
   
 
 @override final  String id;
@@ -522,6 +523,7 @@ class _ScanSession implements ScanSession {
 @override final  String? storagePath;
 @override final  String? asn;
 @override final  String? selectedPageId;
+@override@JsonKey(includeFromJson: false, includeToJson: false) final  Uint8List? generatedPdfBytes;
 
 /// Create a copy of ScanSession
 /// with the given fields replaced by the non-null parameter values.
@@ -533,16 +535,16 @@ _$ScanSessionCopyWith<_ScanSession> get copyWith => __$ScanSessionCopyWithImpl<_
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ScanSession&&(identical(other.id, id) || other.id == id)&&const DeepCollectionEquality().equals(other._pages, _pages)&&(identical(other.status, status) || other.status == status)&&(identical(other.uploadTitle, uploadTitle) || other.uploadTitle == uploadTitle)&&const DeepCollectionEquality().equals(other._tagIds, _tagIds)&&(identical(other.correspondentId, correspondentId) || other.correspondentId == correspondentId)&&(identical(other.documentTypeId, documentTypeId) || other.documentTypeId == documentTypeId)&&(identical(other.createdDate, createdDate) || other.createdDate == createdDate)&&(identical(other.storagePath, storagePath) || other.storagePath == storagePath)&&(identical(other.asn, asn) || other.asn == asn)&&(identical(other.selectedPageId, selectedPageId) || other.selectedPageId == selectedPageId));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ScanSession&&(identical(other.id, id) || other.id == id)&&const DeepCollectionEquality().equals(other._pages, _pages)&&(identical(other.status, status) || other.status == status)&&(identical(other.uploadTitle, uploadTitle) || other.uploadTitle == uploadTitle)&&const DeepCollectionEquality().equals(other._tagIds, _tagIds)&&(identical(other.correspondentId, correspondentId) || other.correspondentId == correspondentId)&&(identical(other.documentTypeId, documentTypeId) || other.documentTypeId == documentTypeId)&&(identical(other.createdDate, createdDate) || other.createdDate == createdDate)&&(identical(other.storagePath, storagePath) || other.storagePath == storagePath)&&(identical(other.asn, asn) || other.asn == asn)&&(identical(other.selectedPageId, selectedPageId) || other.selectedPageId == selectedPageId)&&const DeepCollectionEquality().equals(other.generatedPdfBytes, generatedPdfBytes));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,id,const DeepCollectionEquality().hash(_pages),status,uploadTitle,const DeepCollectionEquality().hash(_tagIds),correspondentId,documentTypeId,createdDate,storagePath,asn,selectedPageId);
+int get hashCode => Object.hash(runtimeType,id,const DeepCollectionEquality().hash(_pages),status,uploadTitle,const DeepCollectionEquality().hash(_tagIds),correspondentId,documentTypeId,createdDate,storagePath,asn,selectedPageId,const DeepCollectionEquality().hash(generatedPdfBytes));
 
 @override
 String toString() {
-  return 'ScanSession(id: $id, pages: $pages, status: $status, uploadTitle: $uploadTitle, tagIds: $tagIds, correspondentId: $correspondentId, documentTypeId: $documentTypeId, createdDate: $createdDate, storagePath: $storagePath, asn: $asn, selectedPageId: $selectedPageId)';
+  return 'ScanSession(id: $id, pages: $pages, status: $status, uploadTitle: $uploadTitle, tagIds: $tagIds, correspondentId: $correspondentId, documentTypeId: $documentTypeId, createdDate: $createdDate, storagePath: $storagePath, asn: $asn, selectedPageId: $selectedPageId, generatedPdfBytes: $generatedPdfBytes)';
 }
 
 
@@ -553,7 +555,7 @@ abstract mixin class _$ScanSessionCopyWith<$Res> implements $ScanSessionCopyWith
   factory _$ScanSessionCopyWith(_ScanSession value, $Res Function(_ScanSession) _then) = __$ScanSessionCopyWithImpl;
 @override @useResult
 $Res call({
- String id, List<ScannedPage> pages, ScanSessionStatus status, String? uploadTitle, List<int>? tagIds, int? correspondentId, int? documentTypeId, DateTime? createdDate, String? storagePath, String? asn, String? selectedPageId
+ String id, List<ScannedPage> pages, ScanSessionStatus status, String? uploadTitle, List<int>? tagIds, int? correspondentId, int? documentTypeId, DateTime? createdDate, String? storagePath, String? asn, String? selectedPageId,@JsonKey(includeFromJson: false, includeToJson: false) Uint8List? generatedPdfBytes
 });
 
 
@@ -570,7 +572,7 @@ class __$ScanSessionCopyWithImpl<$Res>
 
 /// Create a copy of ScanSession
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? pages = null,Object? status = null,Object? uploadTitle = freezed,Object? tagIds = freezed,Object? correspondentId = freezed,Object? documentTypeId = freezed,Object? createdDate = freezed,Object? storagePath = freezed,Object? asn = freezed,Object? selectedPageId = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? pages = null,Object? status = null,Object? uploadTitle = freezed,Object? tagIds = freezed,Object? correspondentId = freezed,Object? documentTypeId = freezed,Object? createdDate = freezed,Object? storagePath = freezed,Object? asn = freezed,Object? selectedPageId = freezed,Object? generatedPdfBytes = freezed,}) {
   return _then(_ScanSession(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,pages: null == pages ? _self._pages : pages // ignore: cast_nullable_to_non_nullable
@@ -583,7 +585,8 @@ as int?,createdDate: freezed == createdDate ? _self.createdDate : createdDate //
 as DateTime?,storagePath: freezed == storagePath ? _self.storagePath : storagePath // ignore: cast_nullable_to_non_nullable
 as String?,asn: freezed == asn ? _self.asn : asn // ignore: cast_nullable_to_non_nullable
 as String?,selectedPageId: freezed == selectedPageId ? _self.selectedPageId : selectedPageId // ignore: cast_nullable_to_non_nullable
-as String?,
+as String?,generatedPdfBytes: freezed == generatedPdfBytes ? _self.generatedPdfBytes : generatedPdfBytes // ignore: cast_nullable_to_non_nullable
+as Uint8List?,
   ));
 }
 

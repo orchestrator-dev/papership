@@ -1,9 +1,16 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../domain/usecases/generate_pdf_usecase.dart';
 import '../models/scan_session.dart';
 
 class ScanSessionCubit extends Cubit<ScanSession> {
-  ScanSessionCubit({required String sessionId})
-      : super(ScanSession(id: sessionId, pages: []));
+  final GeneratePdfUseCase _generatePdfUseCase;
+
+  // ignore: prefer_initializing_formals
+  ScanSessionCubit({
+    required String sessionId,
+    required GeneratePdfUseCase generatePdfUseCase,
+  })  : _generatePdfUseCase = generatePdfUseCase,
+        super(ScanSession(id: sessionId, pages: []));
 
   void addPage(ScannedPage page) {
     final updatedPages = List<ScannedPage>.from(state.pages)..add(page);
@@ -97,5 +104,17 @@ class ScanSessionCubit extends Cubit<ScanSession> {
 
   void selectPage(String pageId) {
     emit(state.copyWith(selectedPageId: pageId));
+  }
+
+  Future<void> generatePdf({String authorName = 'Papership'}) async {
+    emit(state.copyWith(status: ScanSessionStatus.generatingPdf));
+    final result = await _generatePdfUseCase(state, authorName: authorName);
+    result.fold(
+      (failure) => emit(state.copyWith(status: ScanSessionStatus.error)),
+      (pdfBytes) => emit(state.copyWith(
+        status: ScanSessionStatus.pdfReady,
+        generatedPdfBytes: pdfBytes,
+      )),
+    );
   }
 }

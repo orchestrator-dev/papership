@@ -3,7 +3,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'scan_session.freezed.dart';
 
-enum ScanSessionStatus { idle, scanning, error, saving }
+enum ScanSessionStatus { idle, scanning, error, saving, generatingPdf, pdfReady }
 
 enum ScannedPageSource { camera, network }
 
@@ -35,5 +35,6 @@ abstract class ScanSession with _$ScanSession {
     String? storagePath,
     String? asn,
     String? selectedPageId,
+    @JsonKey(includeFromJson: false, includeToJson: false) Uint8List? generatedPdfBytes,
   }) = _ScanSession;
 }

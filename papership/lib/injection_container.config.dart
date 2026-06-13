@@ -17,6 +17,7 @@ import 'package:injectable/injectable.dart' as _i526;
 import 'core/auth/server_config_repository.dart' as _i456;
 import 'core/network/http_client_factory.dart' as _i914;
 import 'core/network/network_module.dart' as _i550;
+import 'data/pdf/pdf_generator_service.dart' as _i444;
 import 'data/remote/services/paperless_api_service.dart' as _i359;
 import 'data/remote/services/paperless_api_service_impl.dart' as _i175;
 import 'data/repositories/document_repository_impl.dart' as _i394;
@@ -30,6 +31,7 @@ import 'domain/repositories/document_repository.dart' as _i822;
 import 'domain/repositories/manual_scanner_repository.dart' as _i525;
 import 'domain/services/scanner_discovery_service.dart' as _i810;
 import 'domain/usecases/download_document_usecase.dart' as _i49;
+import 'domain/usecases/generate_pdf_usecase.dart' as _i980;
 import 'domain/usecases/get_document_preview_usecase.dart' as _i34;
 import 'domain/usecases/get_document_usecase.dart' as _i117;
 import 'domain/usecases/get_documents_usecase.dart' as _i1033;
@@ -50,6 +52,7 @@ extension GetItInjectableX on _i174.GetIt {
   }) {
     final gh = _i526.GetItHelper(this, environment, environmentFilter);
     final networkModule = _$NetworkModule();
+    gh.factory<_i444.PdfGeneratorService>(() => _i444.PdfGeneratorService());
     gh.factory<_i76.CameraScanService>(() => _i76.CameraScanService());
     gh.factory<_i168.EsclScanSettingsXmlBuilder>(
       () => _i168.EsclScanSettingsXmlBuilder(),
@@ -68,6 +71,9 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.lazySingleton<_i810.ScannerDiscoveryService>(
       () => _i732.MdnsScannerDiscoveryService(),
+    );
+    gh.factory<_i980.GeneratePdfUseCase>(
+      () => _i980.GeneratePdfUseCase(gh<_i444.PdfGeneratorService>()),
     );
     gh.lazySingleton<_i359.PaperlessApiService>(
       () => networkModule.getPaperlessApiService(gh<_i361.Dio>()),
