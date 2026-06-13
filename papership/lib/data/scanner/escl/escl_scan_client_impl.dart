@@ -13,6 +13,9 @@ import '../../../domain/models/scanner_capabilities.dart';
 import 'escl_scan_client.dart';
 import 'escl_scan_settings_xml_builder.dart';
 
+import 'package:injectable/injectable.dart';
+
+@LazySingleton(as: EsclScanClient)
 class EsclScanClientImpl implements EsclScanClient {
   final PaperlessHttpClientFactory _clientFactory;
   final EsclScanSettingsXmlBuilder _xmlBuilder;

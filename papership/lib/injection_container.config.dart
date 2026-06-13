@@ -15,11 +15,15 @@ import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
 
 import 'core/auth/server_config_repository.dart' as _i456;
+import 'core/network/http_client_factory.dart' as _i914;
 import 'core/network/network_module.dart' as _i550;
 import 'data/remote/services/paperless_api_service.dart' as _i359;
 import 'data/remote/services/paperless_api_service_impl.dart' as _i175;
 import 'data/repositories/document_repository_impl.dart' as _i394;
 import 'data/scanner/camera/camera_scan_service.dart' as _i76;
+import 'data/scanner/escl/escl_scan_client.dart' as _i608;
+import 'data/scanner/escl/escl_scan_client_impl.dart' as _i128;
+import 'data/scanner/escl/escl_scan_settings_xml_builder.dart' as _i168;
 import 'data/scanner/mdns_scanner_discovery_service.dart' as _i732;
 import 'data/scanner/secure_storage_manual_scanner_repository.dart' as _i315;
 import 'domain/repositories/document_repository.dart' as _i822;
@@ -35,6 +39,7 @@ import 'features/documents/presentation/bloc/document_detail_cubit.dart'
 import 'features/documents/presentation/bloc/document_list_cubit.dart' as _i587;
 import 'features/scan_session/presentation/bloc/camera_capture_cubit.dart'
     as _i862;
+import 'features/scanner/presentation/bloc/network_scan_cubit.dart' as _i929;
 import 'features/settings/presentation/bloc/server_config_cubit.dart' as _i11;
 
 extension GetItInjectableX on _i174.GetIt {
@@ -46,6 +51,9 @@ extension GetItInjectableX on _i174.GetIt {
     final gh = _i526.GetItHelper(this, environment, environmentFilter);
     final networkModule = _$NetworkModule();
     gh.factory<_i76.CameraScanService>(() => _i76.CameraScanService());
+    gh.factory<_i168.EsclScanSettingsXmlBuilder>(
+      () => _i168.EsclScanSettingsXmlBuilder(),
+    );
     gh.lazySingleton<_i361.Dio>(() => networkModule.dio);
     gh.lazySingleton<_i558.FlutterSecureStorage>(
       () => networkModule.flutterSecureStorage,
@@ -63,6 +71,14 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.lazySingleton<_i359.PaperlessApiService>(
       () => networkModule.getPaperlessApiService(gh<_i361.Dio>()),
+    );
+    gh.factoryParam<
+      _i914.PaperlessHttpClientFactory,
+      _i914.AuthFailureCallback?,
+      dynamic
+    >(
+      (onAuthFailure, _) =>
+          _i914.PaperlessHttpClientFactory(onAuthFailure: onAuthFailure),
     );
     gh.factory<_i862.CameraCaptureCubit>(
       () => _i862.CameraCaptureCubit(gh<_i76.CameraScanService>()),
@@ -103,6 +119,18 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i840.UpdateDocumentUseCase>(),
         gh<_i49.DownloadDocumentUseCase>(),
         gh<_i34.GetDocumentPreviewUseCase>(),
+      ),
+    );
+    gh.lazySingleton<_i608.EsclScanClient>(
+      () => _i128.EsclScanClientImpl(
+        gh<_i914.PaperlessHttpClientFactory>(),
+        gh<_i168.EsclScanSettingsXmlBuilder>(),
+      ),
+    );
+    gh.factory<_i929.NetworkScanCubit>(
+      () => _i929.NetworkScanCubit(
+        gh<_i810.ScannerDiscoveryService>(),
+        gh<_i608.EsclScanClient>(),
       ),
     );
     return this;

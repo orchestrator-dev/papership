@@ -2,6 +2,9 @@ import 'package:xml/xml.dart';
 import '../../../domain/models/scan_settings.dart';
 import '../../../domain/models/scanner_capabilities.dart';
 
+import 'package:injectable/injectable.dart';
+
+@injectable
 class EsclScanSettingsXmlBuilder {
   String build(ScanSettings settings, ScannerCapabilities capabilities) {
     final builder = XmlBuilder();

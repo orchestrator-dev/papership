@@ -10,10 +10,15 @@ import '../auth/auth_strategy.dart';
 import '../auth/server_config.dart';
 import 'auth_interceptor.dart';
 
-class PaperlessHttpClientFactory {
-  final void Function()? onAuthFailure;
+import 'package:injectable/injectable.dart';
 
-  PaperlessHttpClientFactory({this.onAuthFailure});
+typedef AuthFailureCallback = void Function();
+
+@injectable
+class PaperlessHttpClientFactory {
+  final AuthFailureCallback? onAuthFailure;
+
+  PaperlessHttpClientFactory({@factoryParam this.onAuthFailure});
 
   Dio createClient(
     ServerConfig config,
