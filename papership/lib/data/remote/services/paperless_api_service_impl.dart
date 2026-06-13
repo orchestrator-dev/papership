@@ -95,11 +95,20 @@ class PaperlessApiServiceImpl {
   Future<Result<PaginatedResponse<TagDto>>> getTags() =>
       _safeApiCall(() => _api.getTags());
 
+  Future<Result<TagDto>> createTag(Map<String, dynamic> data) =>
+      _safeApiCall(() => _api.createTag(data));
+
   Future<Result<PaginatedResponse<CorrespondentDto>>> getCorrespondents() =>
       _safeApiCall(() => _api.getCorrespondents());
 
+  Future<Result<CorrespondentDto>> createCorrespondent(Map<String, dynamic> data) =>
+      _safeApiCall(() => _api.createCorrespondent(data));
+
   Future<Result<PaginatedResponse<DocumentTypeDto>>> getDocumentTypes() =>
       _safeApiCall(() => _api.getDocumentTypes());
+
+  Future<Result<DocumentTypeDto>> createDocumentType(Map<String, dynamic> data) =>
+      _safeApiCall(() => _api.createDocumentType(data));
 
   Future<Result<PaginatedResponse<StoragePathDto>>> getStoragePaths() =>
       _safeApiCall(() => _api.getStoragePaths());

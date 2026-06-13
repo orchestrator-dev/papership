@@ -1,6 +1,9 @@
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../upload/bloc/upload_cubit.dart';
+import '../../upload/presentation/upload_screen.dart';
+import '../../../injection_container.dart';
 import '../bloc/scan_session_cubit.dart';
 import '../models/scan_session.dart';
 
@@ -119,7 +122,19 @@ class _ScanSessionScreenState extends State<ScanSessionScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ScanSessionCubit, ScanSession>(
+    return BlocConsumer<ScanSessionCubit, ScanSession>(
+      listener: (context, state) {
+        if (state.status == ScanSessionStatus.pdfReady && state.generatedPdfBytes != null) {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (ctx) => BlocProvider<UploadCubit>(
+                create: (_) => sl<UploadCubit>(),
+                child: UploadScreen(pdfBytes: state.generatedPdfBytes!),
+              ),
+            ),
+          );
+        }
+      },
       builder: (context, state) {
         final activePages = state.pages.where((p) => !p.excluded).toList();
         final selectedPage = activePages.firstWhere(
@@ -284,7 +299,9 @@ class _ScanSessionScreenState extends State<ScanSessionScreen> {
                   padding: const EdgeInsets.all(16.0),
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(minimumSize: const Size.fromHeight(50)),
-                    onPressed: () {},
+                    onPressed: () {
+                      context.read<ScanSessionCubit>().generatePdf();
+                    },
                     child: Text('UPLOAD (${activePages.length} pages)'),
                   ),
                 ),

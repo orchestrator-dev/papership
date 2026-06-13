@@ -5,7 +5,7 @@ import '../models/scan_session.dart';
 class ScanSessionCubit extends Cubit<ScanSession> {
   final GeneratePdfUseCase _generatePdfUseCase;
 
-  // ignore: prefer_initializing_formals
+// ignore_for_file: prefer_initializing_formals
   ScanSessionCubit({
     required String sessionId,
     required GeneratePdfUseCase generatePdfUseCase,

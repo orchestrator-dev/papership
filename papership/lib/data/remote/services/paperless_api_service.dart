@@ -67,11 +67,20 @@ abstract class PaperlessApiService {
   @GET('/api/tags/')
   Future<PaginatedResponse<TagDto>> getTags();
 
+  @POST('/api/tags/')
+  Future<TagDto> createTag(@Body() Map<String, dynamic> data);
+
   @GET('/api/correspondents/')
   Future<PaginatedResponse<CorrespondentDto>> getCorrespondents();
 
+  @POST('/api/correspondents/')
+  Future<CorrespondentDto> createCorrespondent(@Body() Map<String, dynamic> data);
+
   @GET('/api/document_types/')
   Future<PaginatedResponse<DocumentTypeDto>> getDocumentTypes();
+
+  @POST('/api/document_types/')
+  Future<DocumentTypeDto> createDocumentType(@Body() Map<String, dynamic> data);
 
   @GET('/api/storage_paths/')
   Future<PaginatedResponse<StoragePathDto>> getStoragePaths();
