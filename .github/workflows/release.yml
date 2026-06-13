@@ -52,11 +52,11 @@ jobs:
         run: |
           if [ -n "$KEY_ALIAS" ]; then
             cat <<EOF > ./papership/android/key.properties
-            storePassword=$STORE_PASSWORD
-            keyPassword=$KEY_PASSWORD
-            keyAlias=$KEY_ALIAS
-            storeFile=upload-keystore.jks
-            EOF
+          storePassword=$STORE_PASSWORD
+          keyPassword=$KEY_PASSWORD
+          keyAlias=$KEY_ALIAS
+          storeFile=upload-keystore.jks
+          EOF
           fi
 
       - name: Build APK (for direct download)
