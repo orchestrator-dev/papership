@@ -129,4 +129,51 @@ class PaperlessHttpClientFactory {
 
     return dio;
   }
+
+  Dio createScannerClient() {
+    final dio = Dio(
+      BaseOptions(
+        connectTimeout: const Duration(seconds: 15),
+        receiveTimeout: const Duration(seconds: 60),
+        sendTimeout: const Duration(seconds: 120),
+      ),
+    );
+
+    dio.interceptors.add(
+      RetryInterceptor(
+        dio: dio,
+        logPrint: print,
+        retries: 3,
+        retryDelays: const [
+          Duration(seconds: 2),
+          Duration(seconds: 2),
+          Duration(seconds: 2),
+        ],
+        retryEvaluator: (error, attempt) {
+          if (error.response?.statusCode == 503) {
+            return true;
+          }
+          if (error.type == DioExceptionType.connectionTimeout ||
+              error.type == DioExceptionType.receiveTimeout ||
+              error.type == DioExceptionType.sendTimeout ||
+              error.type == DioExceptionType.connectionError) {
+            return true;
+          }
+          return false;
+        },
+      ),
+    );
+
+    if (kDebugMode) {
+      dio.interceptors.add(
+        PrettyDioLogger(
+          requestHeader: true,
+          requestBody: true,
+          responseHeader: true,
+        ),
+      );
+    }
+
+    return dio;
+  }
 }
