@@ -89,6 +89,28 @@ class _AppShellState extends State<AppShell> with WidgetsBindingObserver {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Papership'),
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(24),
+          child: BlocBuilder<ServerConfigCubit, ServerConfigState>(
+            builder: (context, state) {
+              return state.mapOrNull(
+                list: (value) {
+                  if (value.configs.isEmpty) return const SizedBox.shrink();
+                  final active = value.configs.firstWhere((c) => c.id == value.activeId);
+                  if (active.trustSelfSigned) {
+                    return Container(
+                      color: Colors.orange,
+                      width: double.infinity,
+                      alignment: Alignment.center,
+                      child: const Text('Self-Signed Certificate Allowed', style: TextStyle(color: Colors.white, fontSize: 12)),
+                    );
+                  }
+                  return const SizedBox.shrink();
+                },
+              ) ?? const SizedBox.shrink();
+            },
+          ),
+        ),
         actions: [
           BlocBuilder<ServerConfigCubit, ServerConfigState>(
             builder: (context, state) {

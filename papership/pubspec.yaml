@@ -66,6 +66,10 @@ dev_dependencies:
   retrofit_generator: ^10.2.6
   mocktail: ^1.0.4
   bloc_test: ^10.0.0
+  shelf: ^1.4.2
+  shelf_router: ^1.1.4
+  integration_test:
+    sdk: flutter
 
 flutter:
   uses-material-design: true
