@@ -1,4 +1,4 @@
-# Paperless Companion - Project Phases
+# Papership - Project Phases
 
 ## Phase 1: Scaffold and Setup (Done)
 - [x] Step 1: Project Scaffold
@@ -16,4 +16,9 @@
 
 ## Phase 5: Advanced Auth & Settings
 - [x] Step 7: Auth Strategies — OIDC, Custom Headers, and mTLS
-- [ ] Step 8: Settings — Server Configuration Wizard
+- [x] Step 8: Settings — Server Configuration Wizard
+
+## Phase 6: eSCL Scanner Integration
+- [x] Step 9: mDNS Scanner Discovery
+- [x] Step 10: eSCL — ScannerCapabilities XML Parser
+- [ ] Step 11: eSCL Scan Job Client
