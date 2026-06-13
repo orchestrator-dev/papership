@@ -4,9 +4,20 @@ import 'app/router.dart';
 import 'injection_container.dart';
 import 'package:workmanager/workmanager.dart';
 import 'core/worker/background_upload_worker.dart';
+import 'package:hydrated_bloc/hydrated_bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:path_provider/path_provider.dart';
+import 'features/settings/presentation/bloc/settings_cubit.dart';
+import 'features/settings/presentation/bloc/settings_state.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  configureDependencies();
+  
+  HydratedBloc.storage = await HydratedStorage.build(
+    storageDirectory: HydratedStorageDirectory((await getApplicationDocumentsDirectory()).path),
+  );
+
+  await configureDependencies();
   Workmanager().initialize(
     callbackDispatcher,
   );
@@ -39,17 +50,25 @@ class PapershipApp extends StatelessWidget {
           );
         }
 
-        return MaterialApp.router(
-          title: 'Papership',
-          theme: ThemeData(
-            useMaterial3: true,
-            colorScheme: lightColorScheme,
+        return BlocProvider(
+          create: (_) => sl<SettingsCubit>()..checkBiometrics(),
+          child: BlocBuilder<SettingsCubit, SettingsState>(
+            builder: (context, settingsState) {
+              return MaterialApp.router(
+                title: 'Papership',
+                theme: ThemeData(
+                  useMaterial3: true,
+                  colorScheme: lightColorScheme,
+                ),
+                darkTheme: ThemeData(
+                  useMaterial3: true,
+                  colorScheme: darkColorScheme,
+                ),
+                themeMode: settingsState.themeMode,
+                routerConfig: appRouter,
+              );
+            },
           ),
-          darkTheme: ThemeData(
-            useMaterial3: true,
-            colorScheme: darkColorScheme,
-          ),
-          routerConfig: appRouter,
         );
       },
     );

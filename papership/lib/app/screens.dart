@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 
 class DocumentListScreen extends StatelessWidget {
   const DocumentListScreen({super.key});
@@ -27,29 +26,7 @@ class UploadScreen extends StatelessWidget {
   @override Widget build(BuildContext context) => const Scaffold(body: Center(child: Text('UploadScreen')));
 }
 
-class SettingsScreen extends StatelessWidget {
-  const SettingsScreen({super.key});
-  @override 
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Settings')),
-      body: ListView(
-        children: [
-          ListTile(
-            leading: const Icon(Icons.cloud_upload),
-            title: const Text('Pending Uploads'),
-            onTap: () => context.push('/settings/pending_uploads'),
-          ),
-          ListTile(
-            leading: const Icon(Icons.dns),
-            title: const Text('Server Configuration'),
-            onTap: () => context.push('/settings/server'),
-          ),
-        ],
-      ),
-    );
-  }
-}
+
 
 class ServerConfigWizard extends StatelessWidget {
   const ServerConfigWizard({super.key});

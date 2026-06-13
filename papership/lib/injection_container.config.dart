@@ -13,7 +13,10 @@ import 'package:dio/dio.dart' as _i361;
 import 'package:flutter_secure_storage/flutter_secure_storage.dart' as _i558;
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
+import 'package:local_auth/local_auth.dart' as _i152;
+import 'package:package_info_plus/package_info_plus.dart' as _i655;
 
+import 'core/app_module.dart' as _i135;
 import 'core/auth/server_config_repository.dart' as _i456;
 import 'core/network/http_client_factory.dart' as _i914;
 import 'core/network/network_module.dart' as _i550;
@@ -44,21 +47,28 @@ import 'features/scan_session/presentation/bloc/camera_capture_cubit.dart'
     as _i862;
 import 'features/scanner/presentation/bloc/network_scan_cubit.dart' as _i929;
 import 'features/settings/presentation/bloc/server_config_cubit.dart' as _i11;
+import 'features/settings/presentation/bloc/settings_cubit.dart' as _i235;
 import 'features/upload/bloc/upload_cubit.dart' as _i139;
 import 'features/upload/data/pending_upload_repository.dart' as _i967;
 
 extension GetItInjectableX on _i174.GetIt {
   // initializes the registration of main-scope dependencies inside of GetIt
-  _i174.GetIt init({
+  Future<_i174.GetIt> init({
     String? environment,
     _i526.EnvironmentFilter? environmentFilter,
-  }) {
+  }) async {
     final gh = _i526.GetItHelper(this, environment, environmentFilter);
+    final appModule = _$AppModule();
     final networkModule = _$NetworkModule();
     gh.factory<_i444.PdfGeneratorService>(() => _i444.PdfGeneratorService());
     gh.factory<_i76.CameraScanService>(() => _i76.CameraScanService());
     gh.factory<_i168.EsclScanSettingsXmlBuilder>(
       () => _i168.EsclScanSettingsXmlBuilder(),
+    );
+    gh.lazySingleton<_i152.LocalAuthentication>(() => appModule.localAuth);
+    await gh.lazySingletonAsync<_i655.PackageInfo>(
+      () => appModule.packageInfo,
+      preResolve: true,
     );
     gh.lazySingleton<_i361.Dio>(() => networkModule.dio);
     gh.lazySingleton<_i558.FlutterSecureStorage>(
@@ -91,6 +101,9 @@ extension GetItInjectableX on _i174.GetIt {
     >(
       (onAuthFailure, _) =>
           _i914.PaperlessHttpClientFactory(onAuthFailure: onAuthFailure),
+    );
+    gh.factory<_i235.SettingsCubit>(
+      () => _i235.SettingsCubit(gh<_i152.LocalAuthentication>()),
     );
     gh.factory<_i862.CameraCaptureCubit>(
       () => _i862.CameraCaptureCubit(gh<_i76.CameraScanService>()),
@@ -157,5 +170,7 @@ extension GetItInjectableX on _i174.GetIt {
     return this;
   }
 }
+
+class _$AppModule extends _i135.AppModule {}
 
 class _$NetworkModule extends _i550.NetworkModule {}
